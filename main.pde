@@ -81,7 +81,7 @@ void Update() {
     preCameraY = CameraY;
   }
   
-  
+  stage.Update();
 }
 
 void Draw() {
@@ -89,6 +89,29 @@ void Draw() {
   stage.me.optifineCamera();
   for(Object obj: objects) {
     obj.Draw();
+  }
+  
+  if(stage.isPause()) {
+    PGraphics pg = layers.get("MENU");
+    pg.beginDraw();
+    pg.pushStyle();
+    pg.pushMatrix();
+      pg.textAlign(RIGHT, TOP);
+      pg.noStroke();
+      pg.fill(128, 196);
+      pg.textSize(48);
+      pg.text("GoAhead", width - 16f, 32f);
+      pg.quad(
+        32f, 32f,
+        32f + width * .4f, 32f,
+        32f + 32f / 48f * ( height - 32f ) + width * .4f, height - 32f,
+        32f + 32f / 48f * ( height - 32f ), height - 32f );
+    pg.popMatrix();
+    pg.popStyle();
+    pg.endDraw();
+    for(Field temp: fields) {
+      temp.Draw();
+    }
   }
   
   //layer flip

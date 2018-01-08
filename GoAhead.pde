@@ -83,6 +83,7 @@ void setup() {
   
   layers = new HashMap<String, PGraphics>();
   layers.put("UI", createGraphics(width, height));
+  layers.put("MENU", createGraphics(width, height));
   
   font = loadFont(path + "Molot-48.vlw");
   
@@ -90,7 +91,11 @@ void setup() {
   fields = new ArrayList<Field>();
   
   //debug
-  stage = new Stage();
+  stage = new Stage("PIONIOR", 0);
   fields.add(stage);
   stage.Init();
+  fields.add(new Stage("VOYAGER", 1));
+  fields.add(new Stage("PLUTO", 2));
+  fields.add(new Stage("MOON", 3));
+  fields.add(new Stage("APOLO", 4));
 }
