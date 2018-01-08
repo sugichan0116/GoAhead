@@ -43,29 +43,43 @@ void setup() {
   size(480, 360);
   
   String path = "data/";
+  String[][] imageFiles = new String[][] {
+      {"ROCKET", "rocket.png"},
+      {"ROCKET_GOLD", "rocket2.png"},
+      {"MOON", "moon.png"},
+      {"HEART_FILL", "heart.png"},
+      {"HEART_EMPTY", "heart2.png"},
+      {"ITEM_REPAIR", "item.png"},
+      {"ROCK_1", "rock.png"},
+      {"ROCK_2", "rock2.png"},
+      {"ROCK_3", "rock3.png"},
+      {"BULLET", "bullet.png"}
+    };
   
   icons = new HashMap<String, PImage>();
-  icons.put("PLAYER", loadImage(path + "rocket.png"));
-  icons.put("MOON", loadImage(path + "moon.png"));
-  icons.put("HEART_FILL", loadImage(path + "heart.png"));
-  icons.put("HEART_EMPTY", loadImage(path + "heart2.png"));
-  icons.put("ITEM_REPAIR", loadImage(path + "item.png"));
-  icons.put("ROCK_1", loadImage(path + "rock.png"));
-  icons.put("ROCK_2", loadImage(path + "rock2.png"));
-  icons.put("ROCK_3", loadImage(path + "rock3.png"));
+  for(int n = 0; n < imageFiles.length; n++) {
+    icons.put(imageFiles[n][0], loadImage(path + imageFiles[n][1]));
+  }
   
+  
+  String[][] soundFiles = new String[][] {
+      {"ECHO_1", "echo.mp3"},
+      {"ECHO_2", "echo2.mp3"},
+      {"ECHO_3", "echo3.mp3"},
+      {"ITEM", "pick.mp3"},
+      {"BOMB_1", "001.mp3"},
+      {"BOMB_2", "002.mp3"},
+      {"BOMB_3", "003.mp3"},
+      {"BOMB_4", "004.mp3"},
+      {"BOMB_5", "005.mp3"},
+      {"BOMB_6", "006.mp3"}
+    };
+    
   minim = new Minim(this);
   sounds = new HashMap<String, AudioPlayer>();
-  sounds.put("ECHO_1", minim.loadFile(path + "echo.mp3"));
-  sounds.put("ECHO_2", minim.loadFile(path + "echo2.mp3"));
-  sounds.put("ECHO_3", minim.loadFile(path + "echo3.mp3"));
-  sounds.put("ITEM", minim.loadFile(path + "pick.mp3"));
-  sounds.put("BOMB_1", minim.loadFile(path + "001.mp3"));
-  sounds.put("BOMB_2", minim.loadFile(path + "002.mp3"));
-  sounds.put("BOMB_3", minim.loadFile(path + "003.mp3"));
-  sounds.put("BOMB_4", minim.loadFile(path + "004.mp3"));
-  sounds.put("BOMB_5", minim.loadFile(path + "005.mp3"));
-  sounds.put("BOMB_6", minim.loadFile(path + "006.mp3"));
+  for(int n = 0; n < soundFiles.length; n++) {
+    sounds.put(soundFiles[n][0], minim.loadFile(path + soundFiles[n][1]));
+  }
   
   layers = new HashMap<String, PGraphics>();
   layers.put("UI", createGraphics(width, height));
@@ -74,6 +88,8 @@ void setup() {
   
   
   fields = new ArrayList<Field>();
+  
+  //debug
   stage = new Stage();
   fields.add(stage);
   stage.Init();

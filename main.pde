@@ -17,6 +17,17 @@ void draw() {
   
   //system
   isMousePressed = false;
+  
+  /*
+  print("* " + objects.size());
+  int n = 0, m = 0, k = 0;
+  for(Object temp : objects) {
+    if(temp instanceof Bullet) n++;
+    else if(temp instanceof Item) m++;
+    else if(temp instanceof Obstacle) k++;
+  }
+  print(" @ [" + n + "] [" + m + "] [" + k + "]\n");
+  */
 }
 
 void Update() {
@@ -24,6 +35,16 @@ void Update() {
   for(int i = objects.size() - 1; i >= 0; i--) {
     if((objects.get(i)).isDestroyed()) objects.remove(i);
     else (objects.get(i)).Update();
+  }
+  
+  //collision
+  for(int m = 0; m < objects.size() - 1; m++) {
+    for(int n = m + 1; n < objects.size(); n++) {
+      if((objects.get(m)).isCollision((Matrix)objects.get(n))) {
+        (objects.get(m)).collision(objects.get(n));
+        (objects.get(n)).collision(objects.get(m));
+      }
+    }
   }
   
   //object produce
@@ -44,13 +65,13 @@ void Update() {
           int(random(3f)),
           CameraX + width * 1.6f,
           CameraY + stage.me.vy - height + random(height * 3),
-          abs(randomGaussian() * 10) + 20,
+          pulse(abs(randomGaussian() * 64f), 128f) + abs(randomGaussian() * 16) + 16,
           random(TAU)
           ));
       }
       for(int k = 0; k < 4 * products; k++) {
         objects.add(new Background(
-          .05f + random(.4f), #EEFF6F, 4f + abs(randomGaussian()),
+          .15f + random(.4f), #EEFF6F, 4f + abs(randomGaussian()),
           CameraX + width * (2.6f + random(0.4f)),
           CameraY + stage.me.vy - height * 2 + random(height * 5)
           ));
@@ -69,6 +90,7 @@ void Draw() {
   for(Object obj: objects) {
     obj.Draw();
   }
+  
   //layer flip
   imageMode(CORNER);
   for(Map.Entry set : layers.entrySet()) {

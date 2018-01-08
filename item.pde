@@ -41,21 +41,22 @@ class Item extends Obstacle {
     }
   }
   
-  void tryCollision() {
+  void collision(Object temp) {
+    if(!(temp instanceof Player) || isCollision == true) return;
     isCollision = true;
     
-    itemEffects();
+    itemEffects((Player)temp);
     produceWave();
     playSound("ITEM", 0);
   }
   
-  void itemEffects() {
+  void itemEffects(Player temp) {
     switch(ID) {
       case 0:
-        stage.me.HP = min(stage.me.maxHP, stage.me.HP + 1);
+        temp.HP = min(temp.maxHP, temp.HP + 1);
         break;
       case 1:
-        stage.me.maxHP = min(stage.me.upperLimitHP, stage.me.maxHP + 1);
+        temp.maxHP = min(temp.upperLimitHP, temp.maxHP + 1);
         break;
     }
   }

@@ -8,12 +8,14 @@ class Obstacle extends Matrix {
   String[] soundKey;
   int giveUnCollisionTime;
   color waveColor;
+  int HP;
   
   Obstacle() {
     this(0, 0f, 0f, 16f, 0f);
   }
   
   Obstacle(int ID, float x, float y, float Size, float Angle) {
+    isPhysic = true;
     this.ID = ID;
     iconKey = new String[] {"ROCK_1", "ROCK_2", "ROCK_3"};
     soundKey = new String[] {"BOMB_1", "BOMB_2", "BOMB_3", "BOMB_4", "BOMB_5", "BOMB_6"};
@@ -24,14 +26,13 @@ class Obstacle extends Matrix {
     this.y = y;
     this.size = Size;
     this.angle = Angle;
+    HP = 1 + int(Size / 16f);
   }
   
   void Update() {
     super.Update();
     
-    if(isCollision == false && checkCollision()) {
-      tryCollision();
-    }
+    if(HP <= 0) isCollision = true;
     
     if(isCollision && leftTime > 0) leftTime--;
   }
@@ -40,6 +41,8 @@ class Obstacle extends Matrix {
     pushStyle();
     pushMatrix();
       translate(x - CameraX, y - CameraY);
+      textAlign(CENTER, BOTTOM);
+      text("* HP *  " + HP, 0f, - size);
       rotate(angle);
       imageMode(CENTER);
       if(isCollision == false || leftTime % 2 == 0) {
@@ -49,43 +52,27 @@ class Obstacle extends Matrix {
     popStyle();
   }
   
-  void tryCollision() {
+  boolean isCollision(Object temp) {
+    if(isCollision) return false;
+    return super.isCollision(temp);
+  }
+  
+  void collision(Object temp) {
+    if(!(temp instanceof Player) || isCollision == true) return;
+    
+    Player target = (Player)temp;
     isCollision = true;
     
-    if(stage.me.unCollisionTime <= 0) {
-      stage.me.unCollisionTime = giveUnCollisionTime;
+    if(target.unCollisionTime <= 0) {
+      target.unCollisionTime = giveUnCollisionTime;
       
-      stage.me.HP = max(0, stage.me.HP - 1);
+      target.HP = max(0, target.HP - 1);
       produceWave();
       
       playSound(soundKey[int(random(soundKey.length))], 0);
     }
   }
-  
-  boolean checkCollision() {
-    boolean isInside = false;
-    float[][][] corners = {{{getLeftSide(), getTop()}, {getRightSide(), getTop()},
-      {getLeftSide(), getBottom()}, {getRightSide(), getBottom()}},
-      {{stage.me.getLeftSide(), stage.me.getTop()},
-      {stage.me.getRightSide(), stage.me.getTop()},
-      {stage.me.getLeftSide(), stage.me.getBottom()},
-      {stage.me.getRightSide(), stage.me.getBottom()}}};
     
-    for(int m = 0; m < 2; m++) {
-      for(int n = 0; n < 4; n++) {
-        if((corners[1 - m][0][0] <= corners[m][n][0] && 
-            corners[1 - m][1][0] >= corners[m][n][0]) &&
-           (corners[1 - m][0][1] <= corners[m][n][1] && 
-            corners[1 - m][2][1] >= corners[m][n][1])) {
-           isInside = true;
-           break;
-        }
-      }
-    }
-    
-    return isInside;
-  }
-  
   void produceWave() {
     objects.add(new Wave(
         waveColor, int(frameRate), 128f, x, y, vx, vy));

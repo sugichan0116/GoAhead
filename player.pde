@@ -3,15 +3,23 @@ import java.text.MessageFormat;
 //プレイヤーメインクラス
 class Player extends Matrix{
   int HP, maxHP, upperLimitHP;
+  int ID;
+  String[] iconKey;
   int soundOrder;
   String[] soundKey;
   int moveCoolTime, unCollisionTime, moveMaxCoolTime;
   float moveResist, moveMaxVelocity;
   float moveDirection, moveDirectionVelocity;
+  int shootCoolTime, shootMaxCoolTime;
+  int shootBulletDirection, shootBulletTime;
+  float shootVelocity, shootBulletSize, shootAngleRange;
   final float shiftCameraRate = 0.15f;
   
   Player() {
+    isPhysic = true;
     HP = maxHP = 3; upperLimitHP = 8;
+    this.ID = 0;
+    iconKey = new String[] {"ROCKET", "ROCKET_GOLD"};
     soundOrder = 0;
     soundKey = new String[]{"ECHO_1", "ECHO_1", "ECHO_2", "ECHO_3"};
     unCollisionTime = 0;
@@ -21,6 +29,13 @@ class Player extends Matrix{
     moveDirection = 0f;
     moveDirectionVelocity = 80f / 60f * TAU; //80 BPM
     moveMaxVelocity = 4196f;
+    shootCoolTime = 0;
+    shootMaxCoolTime = 12;
+    shootBulletTime = 30;
+    shootBulletSize = 8f;
+    shootBulletDirection = 3;
+    shootAngleRange = radians(20 + shootBulletDirection * 5);
+    shootVelocity = 256f;
   }
   
   boolean isDestroyed() {
@@ -65,7 +80,7 @@ class Player extends Matrix{
         rotate(angle);
         //本体
         imageMode(CENTER);
-        image(icons.get("PLAYER"), 0, 0, size * 2, size * 2);
+        image(icons.get(iconKey[ID]), 0, 0, size * 2, size * 2);
         rotate(-angle);
         translate(moonX(), moonY());
         //衛星
@@ -91,15 +106,20 @@ class Player extends Matrix{
     vx *= 1f - Framed(moveResist);
     vy *= 1f - Framed(moveResist);
     angle += Framed((new PVector(vx, vy)).heading() - angle) / moveResist;
-    
     moveDirection += Framed(moveDirectionVelocity);
+    
     if(moveCoolTime > 0) moveCoolTime--;
     else tryMove();
+    
+    if(shootCoolTime > 0) shootCoolTime--;
+    else tryShoot();
     
     if(unCollisionTime > 0) unCollisionTime--;
     
     produceFire();
     
+    //shootBulletDirection = (frameCount / 30) % 16;
+    shootAngleRange = radians(5 + shootBulletDirection * 15);
   }
     
   void optifineCamera() {
@@ -114,6 +134,14 @@ class Player extends Matrix{
     
   }
   
+  void tryShoot() {
+    if(keyPressed) {
+      shootCoolTime = shootMaxCoolTime;
+      
+      produceBullet();
+    }
+  }
+  
   void tryMove() {
     if(mousePressed && isMousePressed) {
       vx += Framed(moveMaxVelocity) * cos(moveDirection);
@@ -123,6 +151,21 @@ class Player extends Matrix{
       produceWave();
       playSound(soundKey[soundOrder], 0);
       soundOrder = ++soundOrder % soundKey.length;
+    }
+  }
+  
+  void produceBullet() {
+    for(int n = 0; n < shootBulletDirection; n++) {
+      float direction = angle + (float(n) - float(shootBulletDirection - 1) / 2f) / shootBulletDirection * shootAngleRange;
+      objects.add(new Bullet(
+        shootBulletTime,
+        shootBulletSize,
+        x + size * cos(direction),
+        y + size * sin(direction),
+        vx + shootVelocity * cos(direction),
+        vy + shootVelocity * sin(direction),
+        direction
+        ));
     }
   }
   
