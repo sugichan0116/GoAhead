@@ -52,7 +52,7 @@ class Obstacle extends Matrix {
       rotate(angle);
       imageMode(CENTER);
       if(isCollision == false || leftTime % 2 == 0) {
-        image(icons.get(iconKey[ID]), 0, 0, size, size);
+        image(icons.get(iconKey[ID]), size * .05f, -size * .05f, size * 1.15f, size * 1.15f);
       }
     popMatrix();
     popStyle();

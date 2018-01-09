@@ -16,6 +16,7 @@ class Item extends Obstacle {
     this.y = y;
     this.vx = vx;
     this.vy = vy;
+    leftTime = 8;
   }
   
   void Draw() {

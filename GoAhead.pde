@@ -93,6 +93,7 @@ void setup() {
   
   //debug
   stage = new Stage("PIONIOR", 0);
+  stage.state = State.PLAY;
   fields.add(stage);
   stage.Init();
   fields.add(new Stage("VOYAGER", 1));

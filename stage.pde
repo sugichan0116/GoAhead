@@ -67,7 +67,7 @@ class Stage implements Field {
   }
   
   void Update() {
-    print("* game : " + state + "\n");
+    //print("* game : " + state + "\n");
     if(state != State.FAILED && state != State.CLEAR) {
       if(me.HP <= 0) state = State.FAILED;
       else if(me.getDistance() >= targetDistance) state = State.CLEAR;
