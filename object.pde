@@ -54,11 +54,13 @@ class Matrix implements Object, Utility{
     temp.rotate(angle + id * HALF_PI);
     temp.add(x, y);
     
+    /*
     pushMatrix();
       translate(temp.x - CameraX, temp.y - CameraY);
       rectMode(CENTER);
       rect(0, 0, 4, 4);
     popMatrix();
+    */
     
     return temp;
   }

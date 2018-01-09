@@ -32,7 +32,7 @@ class Obstacle extends Matrix {
     this.vy = vy;
     this.size = Size;
     this.angle = Angle;
-    HP = 1 + int(Size / 16f);
+    HP = 1 + int(pow(Size / 32f, 2.0f));
   }
   
   void Update() {
@@ -72,7 +72,7 @@ class Obstacle extends Matrix {
     if(target.unCollisionTime <= 0) {
       target.unCollisionTime = giveUnCollisionTime;
       
-      target.HP = max(0, target.HP - 1);
+      target.HP = max(0, target.HP - 1 - floor(size / 64f));
       produceWave();
       
       playSound(soundKey[int(random(soundKey.length))], 0);

@@ -7,6 +7,7 @@ class Bullet extends Obstacle {
     iconKey = new String[] {"BULLET"};
     isPhysic = true;
     rangeTime = time;
+    leftTime = 4;
     moveResist = .3f;
     this.angle = angle;
     this.x = x;
@@ -38,7 +39,8 @@ class Bullet extends Obstacle {
   }
   
   void collision(Object temp) {
-    if(temp instanceof Item || temp instanceof Bullet || !(temp instanceof Obstacle) || isCollision == true) return;
+    if(temp instanceof Item || temp instanceof Bullet ||
+      !(temp instanceof Obstacle) || isCollision == true) return;
     
     Obstacle target = (Obstacle)temp;
     isCollision = true;
@@ -48,8 +50,19 @@ class Bullet extends Obstacle {
       target.HP = max(0, target.HP - 1);
       target.size = max(4f, target.size - 4f);
       
+      if(target.size > 64f) {
+        produceRock(target, 16f + randomGaussian());
+      }
       produceWave();
       playSound(soundKey[int(random(soundKey.length))], 0);
     }
+  }
+  
+  
+  void produceRock(Obstacle temp, float size) {
+    PVector v = new PVector(temp.vx + vx / 4f, temp.vy + vy / 4f);
+    v.rotate(random(TAU)).sub(v.mag(), 0f);
+    objects.add(new Obstacle(
+        temp.ID, size, angle, temp.x, temp.y, v.x, v.y));
   }
 }

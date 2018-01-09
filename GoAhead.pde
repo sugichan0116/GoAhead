@@ -51,6 +51,7 @@ void setup() {
       {"HEART_EMPTY", "heart2.png"},
       {"ITEM_REPAIR", "item.png"},
       {"ITEM_BULLET", "item2.png"},
+      {"ITEM_STAR", "star.png"},
       {"ROCK_1", "rock.png"},
       {"ROCK_2", "rock2.png"},
       {"ROCK_3", "rock3.png"},

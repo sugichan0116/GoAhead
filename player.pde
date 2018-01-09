@@ -13,6 +13,7 @@ class Player extends Matrix{
   int shootCoolTime, shootMaxCoolTime;
   int shootBulletDirection, shootBulletTime;
   float shootVelocity, shootBulletSize, shootAngleRange;
+  int invincibleTime;
   final float shiftCameraRate = 0.15f;
   
   Player() {
@@ -36,6 +37,7 @@ class Player extends Matrix{
     shootBulletDirection = 0;
     shootAngleRange = radians(20 + shootBulletDirection * 5);
     shootVelocity = 256f;
+    invincibleTime = 0;
   }
   
   boolean isDestroyed() {
@@ -52,6 +54,10 @@ class Player extends Matrix{
     pg.beginDraw();
     pg.pushStyle();
     pg.pushMatrix();
+    if(invincibleTime > 0) {
+      pg.fill(#FFED24, min(32f, 0.5f * invincibleTime));
+      pg.rect(0, 0, width, height);
+    }
     pg.translate(32, 16);
     //pg.rectMode(CENTER);
     //pg.stroke(255);
@@ -73,7 +79,7 @@ class Player extends Matrix{
     pg.popStyle();
     pg.endDraw();
     
-    if(unCollisionTime % 2 == 0) {
+    if(invincibleTime > 0 || unCollisionTime % 2 == 0) {
       //object
       pushMatrix();
         translate(x - CameraX, y - CameraY);
@@ -115,6 +121,12 @@ class Player extends Matrix{
     else tryShoot();
     
     if(unCollisionTime > 0) unCollisionTime--;
+    
+    if(invincibleTime > 0) {
+      invincibleTime--;
+      unCollisionTime++;
+      ID = 1;
+    } else ID = 0;
     
     produceFire();
     
