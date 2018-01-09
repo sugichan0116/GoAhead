@@ -11,10 +11,14 @@ class Obstacle extends Matrix {
   int HP;
   
   Obstacle() {
-    this(0, 0f, 0f, 16f, 0f);
+    this(0, 16f, 0f, 0f, 0f);
   }
   
-  Obstacle(int ID, float x, float y, float Size, float Angle) {
+  Obstacle(int ID, float Size, float Angle, float x, float y) {
+    this(ID, Size, Angle, x, y, 0f, 0f);
+  }
+  
+  Obstacle(int ID, float Size, float Angle, float x, float y, float vx, float vy) {
     isPhysic = true;
     this.ID = ID;
     iconKey = new String[] {"ROCK_1", "ROCK_2", "ROCK_3"};
@@ -24,6 +28,8 @@ class Obstacle extends Matrix {
     isCollision = false;
     this.x = x;
     this.y = y;
+    this.vx = vx;
+    this.vy = vy;
     this.size = Size;
     this.angle = Angle;
     HP = 1 + int(Size / 16f);

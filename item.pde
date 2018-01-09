@@ -6,7 +6,7 @@ class Item extends Obstacle {
   String iconName[];
   
   Item(int id, float size, float x, float y, float vx, float vy) {
-    iconName = new String[] {"ITEM_REPAIR", "HEART_EMPTY"};
+    iconName = new String[] {"ITEM_REPAIR", "HEART_EMPTY", "ITEM_BULLET"};
     waveColor = color(#50FF36);
     ID = id;
     approachRangeRate = 8.0f;
@@ -57,6 +57,9 @@ class Item extends Obstacle {
         break;
       case 1:
         temp.maxHP = min(temp.upperLimitHP, temp.maxHP + 1);
+        break;
+      case 2:
+        temp.shootBulletDirection += 1;
         break;
     }
   }

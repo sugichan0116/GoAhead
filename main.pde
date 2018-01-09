@@ -48,25 +48,29 @@ void Update() {
   }
   
   //object produce
-  int products = int((CameraX - preCameraX) / 100f);
+  int products = int((CameraX - preCameraX) / 64f);
   if(products > 1) {
     for(int i = 0; i < products; i++) {
-      if(int(random(10f)) == 0) {
+      if(int(random(8f)) == 0) {
         //item生成
         objects.add(new Item(
-          int(random(2f)), 16f, 
+          int(random(3f)), 16f, 
           CameraX + width * 1.6f,
           CameraY + stage.me.vy - height + random(height * 3),
           0f, 0f
           ));
       } else {
+        PVector v = new PVector(-pulse(abs(randomGaussian() * 32f), 64f), 0f);
+        if(v.x < 0f) v.y = randomGaussian() * 64;
         //obst生成
         objects.add(new Obstacle(
           int(random(3f)),
+          pulse(abs(randomGaussian() * 64f), 128f) + abs(randomGaussian() * 16) + 16,
+          random(TAU),
           CameraX + width * 1.6f,
           CameraY + stage.me.vy - height + random(height * 3),
-          pulse(abs(randomGaussian() * 64f), 128f) + abs(randomGaussian() * 16) + 16,
-          random(TAU)
+          v.x,
+          v.y
           ));
       }
       for(int k = 0; k < 4 * products; k++) {

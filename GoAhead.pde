@@ -4,7 +4,7 @@
 カメラワークの拡大と縮小
 まわってるやつの速度UP
 スピード上がるエリアリング
-
+回転のあたり判定
 
 */
 
@@ -50,6 +50,7 @@ void setup() {
       {"HEART_FILL", "heart.png"},
       {"HEART_EMPTY", "heart2.png"},
       {"ITEM_REPAIR", "item.png"},
+      {"ITEM_BULLET", "item2.png"},
       {"ROCK_1", "rock.png"},
       {"ROCK_2", "rock2.png"},
       {"ROCK_3", "rock3.png"},

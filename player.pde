@@ -33,7 +33,7 @@ class Player extends Matrix{
     shootMaxCoolTime = 12;
     shootBulletTime = 30;
     shootBulletSize = 8f;
-    shootBulletDirection = 3;
+    shootBulletDirection = 0;
     shootAngleRange = radians(20 + shootBulletDirection * 5);
     shootVelocity = 256f;
   }

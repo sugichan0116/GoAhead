@@ -4,7 +4,7 @@ float Framed(float num) {
 }
 
 float pulse(float num, float filter) {
-  return (num >= filter) ? num : 0;
+  return (abs(num) >= filter) ? num : 0f;
 }
 
 float Beat(float interval) {
