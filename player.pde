@@ -10,11 +10,12 @@ class Player extends Matrix{
   int moveCoolTime, unCollisionTime, moveMaxCoolTime;
   float moveResist, moveMaxVelocity;
   float moveDirection, moveDirectionVelocity;
-  int shootCoolTime, shootMaxCoolTime;
-  int shootBulletDirection, shootBulletTime;
+  int shootCoolTime, shootMaxCoolTime, shootBulletDamage;
+  int shootBulletDirection, shootBulletTime, bulletID;
   float shootVelocity, shootBulletSize, shootAngleRange;
   int invincibleTime;
-  final float shiftCameraRate = 0.15f;
+  HashMap<String, Float> bulletData;
+  final float shiftCameraRate = 0.3f;
   
   Player() {
     isPhysic = true;
@@ -24,20 +25,45 @@ class Player extends Matrix{
     soundOrder = 0;
     soundKey = new String[]{"ECHO_1", "ECHO_1", "ECHO_2", "ECHO_3"};
     unCollisionTime = 0;
+    
+    bulletData = new HashMap<String, Float>();
+    for(int n = 0; n < 3; n++) {
+      bulletData.put("VELOCITY" + n, 256f);
+      bulletData.put("TIME" + n, 30f);
+      bulletData.put("SIZE" + n, 8f);
+      bulletData.put("COOL" + n, 12f);
+      bulletData.put("DAMAGE" + n, 1f);
+    }
+    bulletData.put("VELOCITY" + 0, 512f);
+    bulletData.put("COOL" + 1, 4f);
+    bulletData.put("SIZE" + 2, 16f);
+    bulletData.put("DAMAGE" + 2, 2f);
+    
     moveMaxCoolTime = 6;
     moveResist = 0.3f;
     moveCoolTime = 0;
     moveDirection = 0f;
     moveDirectionVelocity = 80f / 60f * TAU; //80 BPM
     moveMaxVelocity = 4196f;
+    bulletID = 0;
     shootCoolTime = 0;
-    shootMaxCoolTime = 12;
-    shootBulletTime = 30;
-    shootBulletSize = 8f;
     shootBulletDirection = 0;
     shootAngleRange = radians(20 + shootBulletDirection * 5);
-    shootVelocity = 256f;
+    setBulletData();
     invincibleTime = 0;
+    
+  }
+  
+  void setBulletData() {
+    shootVelocity = getBulletData("VELOCITY");
+    shootMaxCoolTime = int(getBulletData("COOL"));
+    shootBulletTime = int(getBulletData("TIME"));
+    shootBulletSize = getBulletData("SIZE");
+    shootBulletDamage = int(getBulletData("DAMAGE"));
+  }
+  
+  float getBulletData(String temp) {
+    return bulletData.get(temp + bulletID);
   }
   
   boolean isDestroyed() {
@@ -117,6 +143,7 @@ class Player extends Matrix{
     if(moveCoolTime > 0) moveCoolTime--;
     else tryMove();
     
+    setBulletData();
     if(shootCoolTime > 0) shootCoolTime--;
     else tryShoot();
     
@@ -170,6 +197,8 @@ class Player extends Matrix{
     for(int n = 0; n < shootBulletDirection; n++) {
       float direction = angle + (float(n) - float(shootBulletDirection - 1) / 2f) / shootBulletDirection * shootAngleRange;
       objects.add(new Bullet(
+        bulletID,
+        shootBulletDamage,
         shootBulletTime,
         shootBulletSize,
         x + size * cos(direction),

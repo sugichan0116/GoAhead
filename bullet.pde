@@ -1,10 +1,12 @@
 class Bullet extends Obstacle {
   int rangeTime;
+  int damage;
   float moveResist;
   
-  Bullet(int time, float size, float x, float y, float vx, float vy, float angle) {
-    ID = 0;
-    iconKey = new String[] {"BULLET"};
+  Bullet(int id, int damage, int time, float size, float x, float y, float vx, float vy, float angle) {
+    ID = id;
+    this.damage = damage;
+    iconKey = new String[] {"BULLET_RED", "BULLET_BLUE", "BULLET_GREEN"};
     isPhysic = true;
     rangeTime = time;
     leftTime = 4;
@@ -47,7 +49,7 @@ class Bullet extends Obstacle {
     
     if(target.isCollision == false) {
       
-      target.HP = max(0, target.HP - 1);
+      target.HP = max(0, target.HP - damage);
       target.size = max(4f, target.size - 4f);
       
       if(target.size > 64f) {

@@ -50,12 +50,18 @@ void setup() {
       {"HEART_FILL", "heart.png"},
       {"HEART_EMPTY", "heart2.png"},
       {"ITEM_REPAIR", "item.png"},
-      {"ITEM_BULLET", "item2.png"},
+      {"ITEM_BULLET", "item_normal.png"},
+      {"ITEM_BULLET_RED", "item_red.png"},
+      {"ITEM_BULLET_BLUE", "item_blue.png"},
+      {"ITEM_BULLET_GREEN", "item_green.png"},
       {"ITEM_STAR", "star.png"},
       {"ROCK_1", "rock.png"},
       {"ROCK_2", "rock2.png"},
       {"ROCK_3", "rock3.png"},
-      {"BULLET", "bullet.png"}
+      {"BULLET", "bullet.png"},
+      {"BULLET_RED", "bullet.png"},
+      {"BULLET_BLUE", "bullet2.png"},
+      {"BULLET_GREEN", "bullet3.png"}
     };
   
   icons = new HashMap<String, PImage>();
