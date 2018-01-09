@@ -12,8 +12,10 @@ float Beat(float interval) {
 }
 
 void playSound(String soundKey, int Cue) {
-  print("* " + soundKey + "\n");
-  if(sounds.get(soundKey) == null) return;
+  if(sounds.get(soundKey) == null) { 
+    print("* error : " + soundKey + "\n");
+    return;
+  }
   sounds.get(soundKey).play();
   sounds.get(soundKey).cue(Cue);
 }

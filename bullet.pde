@@ -46,6 +46,7 @@ class Bullet extends Obstacle {
     if(target.isCollision == false) {
       
       target.HP = max(0, target.HP - 1);
+      target.size = max(4f, target.size - 4f);
       
       produceWave();
       playSound(soundKey[int(random(soundKey.length))], 0);
