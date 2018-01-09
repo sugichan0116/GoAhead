@@ -47,7 +47,7 @@ class Player extends Matrix{
     moveMaxVelocity = 4196f;
     bulletID = 0;
     shootCoolTime = 0;
-    shootBulletDirection = 0;
+    shootBulletDirection = 1;
     shootAngleRange = radians(20 + shootBulletDirection * 5);
     setBulletData();
     invincibleTime = 0;

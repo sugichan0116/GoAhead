@@ -41,8 +41,7 @@ class Bullet extends Obstacle {
   }
   
   void collision(Object temp) {
-    if(temp instanceof Item || temp instanceof Bullet ||
-      !(temp instanceof Obstacle) || isCollision == true) return;
+    if(temp.getClass() != Obstacle.class || isCollision == true) return;
     
     Obstacle target = (Obstacle)temp;
     isCollision = true;
@@ -50,7 +49,7 @@ class Bullet extends Obstacle {
     if(target.isCollision == false) {
       
       target.HP = max(0, target.HP - damage);
-      target.size = max(4f, target.size - 4f);
+      target.size = max(16f, sqrt(pow(target.size, 2f) - target.size * damage));
       
       if(target.size > 64f) {
         produceRock(target, 16f + randomGaussian());

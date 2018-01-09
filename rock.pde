@@ -32,7 +32,7 @@ class Obstacle extends Matrix {
     this.vy = vy;
     this.size = Size;
     this.angle = Angle;
-    HP = 1 + int(pow(Size / 32f, 2.0f));
+    HP = 1 + int(pow(Size / 32f, 2.0f)) * ((ID == 2) ? 2 : 1);
   }
   
   void Update() {
