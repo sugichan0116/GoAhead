@@ -46,10 +46,10 @@ class Item extends Obstacle {
   }
   
   void collision(Object temp) {
-    if(!(temp instanceof Player) || isCollision == true) return;
+    if(!(temp.getClass() == Player.class || temp.getClass() == Bullet.class) || isCollision == true) return;
     isCollision = true;
     
-    itemEffects((Player)temp);
+    itemEffects(stage.me);
     produceWave();
     playSound("ITEM", 0);
   }
