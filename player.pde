@@ -3,16 +3,21 @@ import java.text.MessageFormat;
 //プレイヤーメインクラス
 class Player extends Matrix{
   int HP, maxHP, upperLimitHP;
+  
   int ID;
   String[] iconKey;
   int soundOrder;
   String[] soundKey;
+  
   int moveCoolTime, unCollisionTime, moveMaxCoolTime;
   float moveResist, moveMaxVelocity;
   float moveDirection, moveDirectionVelocity;
+  
   int shootCoolTime, shootMaxCoolTime, shootBulletDamage;
   int shootBulletDirection, shootBulletTime, bulletID;
+  float shootAccuracy;
   float shootVelocity, shootBulletSize, shootAngleRange;
+  
   int invincibleTime;
   HashMap<String, Float> bulletData;
   final float shiftCameraRate = 0.3f;
@@ -33,11 +38,14 @@ class Player extends Matrix{
       bulletData.put("SIZE" + n, 8f);
       bulletData.put("COOL" + n, 12f);
       bulletData.put("DAMAGE" + n, 1f);
+      bulletData.put("ACCURACY" + n, 1f);
     }
     bulletData.put("VELOCITY" + 0, 512f);
+    bulletData.put("ACCURACY" + 0, .3f);
     bulletData.put("COOL" + 1, 4f);
+    bulletData.put("COOL" + 2, 24f);
     bulletData.put("SIZE" + 2, 16f);
-    bulletData.put("DAMAGE" + 2, 2f);
+    bulletData.put("DAMAGE" + 2, 4f);
     
     moveMaxCoolTime = 6;
     moveResist = 0.3f;
@@ -45,10 +53,10 @@ class Player extends Matrix{
     moveDirection = 0f;
     moveDirectionVelocity = 80f / 60f * TAU; //80 BPM
     moveMaxVelocity = 4196f;
+    
     bulletID = 0;
     shootCoolTime = 0;
     shootBulletDirection = 1;
-    shootAngleRange = radians(20 + shootBulletDirection * 5);
     setBulletData();
     invincibleTime = 0;
     
@@ -60,6 +68,8 @@ class Player extends Matrix{
     shootBulletTime = int(getBulletData("TIME"));
     shootBulletSize = getBulletData("SIZE");
     shootBulletDamage = int(getBulletData("DAMAGE"));
+    shootAngleRange = 
+      radians(getBulletData("ACCURACY") * min(120, 20 + shootBulletDirection * 5));
   }
   
   float getBulletData(String temp) {
@@ -157,8 +167,6 @@ class Player extends Matrix{
     
     produceFire();
     
-    //shootBulletDirection = (frameCount / 30) % 16;
-    shootAngleRange = radians(5 + shootBulletDirection * 15);
   }
     
   void optifineCamera() {

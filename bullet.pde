@@ -66,6 +66,9 @@ class Bullet extends Obstacle {
     PVector v = new PVector(temp.vx + vx / 4f, temp.vy + vy / 4f);
     v.rotate(random(TAU)).sub(v.mag(), 0f);
     objects.add(new Obstacle(
-        temp.ID, size, angle, temp.x, temp.y, v.x, v.y));
+        temp.ID, size, angle,
+        x,
+        y,
+        v.x, v.y));
   }
 }
