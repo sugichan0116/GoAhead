@@ -40,7 +40,7 @@ Minim minim;
 HashMap<String, AudioPlayer> sounds;
 
 void setup() {
-  size(480, 360);
+  size(720, 480);
   
   String path = "data/";
   String[][] imageFiles = new String[][] {
