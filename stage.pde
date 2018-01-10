@@ -28,6 +28,7 @@ interface Mode {
   ;
 }
 
+
 class Stage implements Field {
   PVector r, s;
   int column;
@@ -55,8 +56,8 @@ class Stage implements Field {
   }
   
   void setLocation() {
-    r.x = column * 32f + 128f;
-    r.y = 128f + column * 48f;
+    r.x = column * 36f + 96f;
+    r.y = 64f + column * 48f;
     pushStyle();
     int fontSize = 24;
     textSize(fontSize);
@@ -101,9 +102,15 @@ class Stage implements Field {
     //print("* game : " + judge + "\n");
     setLocation();
     if(judge == State.NOTYET) {
+      if(mode == Mode.LONG) {
+        if(me.getDistance() >= targetDistance)
+          judge = State.CLEAR;
+      }
+      if(mode == Mode.TIME) {
+        
+      }
+      
       if(me.HP <= 0) judge = State.FAILED;
-      else if(me.getDistance() >= targetDistance)
-        judge = State.CLEAR;
     } else state = State.PAUSE;
   }
   
