@@ -44,7 +44,7 @@ class Stage implements Field {
   Player me;
   
   int state,judge;
-  int mode = Mode.LONG;
+  int mode = Mode.FREE;
   
   Stage(String name, int column) {
     this.name = name;
@@ -92,7 +92,7 @@ class Stage implements Field {
     pg.pushMatrix();
       pg.translate(r.x, r.y);
       pg.textAlign(LEFT, TOP);
-      pg.fill(16f);
+      pg.fill((isOverlap()) ? #FF8243 : #A7A7A7);
       pg.textSize(s.y);
       pg.text("* " + name, 0f, 0f);
     pg.popMatrix();
