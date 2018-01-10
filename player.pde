@@ -56,7 +56,7 @@ class Player extends Matrix{
     
     bulletID = 0;
     shootCoolTime = 0;
-    shootBulletDirection = 1;
+    shootBulletDirection = 0;
     setBulletData();
     invincibleTime = 0;
     

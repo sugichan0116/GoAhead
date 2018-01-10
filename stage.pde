@@ -13,21 +13,37 @@ interface State {
   int
   PLAY = 0,
   PAUSE = 1,
-  CLEAR = 2,
-  FAILED = 3
+  NOTYET = 2,
+  CLEAR = 3,
+  FAILED = 4
+  ;
+}
+
+interface Mode {
+  int
+  FREE = 1,
+  LONG = 2,
+  TIME = 4,
+  DESTROY = 8
   ;
 }
 
 class Stage implements Field {
   PVector r;
   int column;
+  
   String name;
+  
   float targetDistance = 3000f;
   float targetTime = 30f;
+  
   float spornRate = 1f;
+  
   int playerHP = 3;
   Player me;
-  int state = 1;
+  
+  int state = State.PLAY, judge = State.NOTYET;
+  int mode = Mode.LONG;
   
   Stage(String name, int column) {
     this.name = name;
@@ -67,10 +83,11 @@ class Stage implements Field {
   }
   
   void Update() {
-    //print("* game : " + state + "\n");
-    if(state != State.FAILED && state != State.CLEAR) {
-      if(me.HP <= 0) state = State.FAILED;
-      else if(me.getDistance() >= targetDistance) state = State.CLEAR;
+    print("* game : " + judge + "\n");
+    if(judge == State.NOTYET) {
+      if(me.HP <= 0) judge = State.FAILED;
+      else if(me.getDistance() >= targetDistance) judge = State.CLEAR;
+      state = State.PAUSE;
     }
   }
   
@@ -79,10 +96,10 @@ class Stage implements Field {
   }
   
   boolean isClear() {
-    return state == State.CLEAR;
+    return judge == State.CLEAR;
   }
   
   boolean isFailed() {
-    return state == State.FAILED;
+    return judge == State.FAILED;
   }
 }

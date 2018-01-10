@@ -43,8 +43,6 @@ class Bullet extends Obstacle {
   void collision(Object temp) {
     if(temp.getClass() != Obstacle.class || isCollision == true) return;
     
-    
-    
     Obstacle target = (Obstacle)temp;
     isCollision = true;
     
