@@ -11,7 +11,7 @@ void draw() {
   //update & draw
   if(objects == null) print("* objects null \n");
   else {
-    if(stage.isPause() == false) Update();
+    Update();
     Draw();
   }
   
@@ -31,61 +31,81 @@ void draw() {
 }
 
 void Update() {
-  //remove & update
-  for(int i = objects.size() - 1; i >= 0; i--) {
-    if((objects.get(i)).isDestroyed()) objects.remove(i);
-    else (objects.get(i)).Update();
-  }
-  
-  //collision
-  for(int m = 0; m < objects.size() - 1; m++) {
-    for(int n = m + 1; n < objects.size(); n++) {
-      if((objects.get(m)).isCollision((Matrix)objects.get(n))) {
-        (objects.get(m)).collision(objects.get(n));
-        (objects.get(n)).collision(objects.get(m));
+  if(stage.isPlay() == true) {
+    //remove & update
+    for(int i = objects.size() - 1; i >= 0; i--) {
+      if((objects.get(i)).isDestroyed()) objects.remove(i);
+      else (objects.get(i)).Update();
+    }
+    
+    //collision
+    for(int m = 0; m < objects.size() - 1; m++) {
+      for(int n = m + 1; n < objects.size(); n++) {
+        if((objects.get(m)).isCollision((Matrix)objects.get(n))) {
+          (objects.get(m)).collision(objects.get(n));
+          (objects.get(n)).collision(objects.get(m));
+        }
       }
     }
-  }
-  
-  //object produce
-  int products = int((CameraX - preCameraX) / 64f);
-  if(products > 1) {
-    for(int i = 0; i < products; i++) {
-      if(int(random(8f)) == 0) {
-        //item生成
-        objects.add(new Item(
-          int(random(6f)), 16f, 
-          CameraX + width * 1.6f,
-          CameraY + stage.me.vy - height + random(height * 3),
-          0f, 0f
-          ));
+    
+    //object produce
+    int products = int((CameraX - preCameraX) / 64f);
+    if(products > 1) {
+      for(int i = 0; i < products; i++) {
+        if(int(random(8f)) == 0) {
+          //item生成
+          objects.add(new Item(
+            int(random(6f)), 16f, 
+            CameraX + width * 1.6f,
+            CameraY + stage.me.vy - height + random(height * 3),
+            0f, 0f
+            ));
+        } else {
+          PVector v = new PVector(-pulse(abs(randomGaussian() * 32f), 64f), 0f);
+          if(v.x < 0f) v.y = randomGaussian() * 64;
+          //obst生成
+          objects.add(new Obstacle(
+            int(random(3f)),
+            pulse(abs(randomGaussian() * 64f), 128f) + abs(randomGaussian() * 16) + 16,
+            random(TAU),
+            CameraX + width * 1.6f,
+            CameraY + stage.me.vy - height + random(height * 3),
+            v.x,
+            v.y
+            ));
+        }
+        for(int k = 0; k < 4 * products; k++) {
+          objects.add(new Background(
+            .15f + random(.4f), #EEFF6F, 4f + abs(randomGaussian()),
+            CameraX + width * (2.6f + random(0.4f)),
+            CameraY + stage.me.vy - height * 2 + random(height * 5)
+            ));
+        }
+      }
+      preCameraX = CameraX;
+      preCameraY = CameraY;
+    }
+    
+    stage.Update();
+  } else if(stage.isPlay() == false) {
+    Stage buf = null;
+    for(Field temp: fields) {
+      temp.Draw();
+      if(isMousePressed && ((Stage)temp).isOverlap()) buf = (Stage)temp;
+    }
+    if(buf != null) {
+      print("* " + stage.state + "\n");
+      if(buf.state == State.PAUSE) {
+        stage.Play();
       } else {
-        PVector v = new PVector(-pulse(abs(randomGaussian() * 32f), 64f), 0f);
-        if(v.x < 0f) v.y = randomGaussian() * 64;
-        //obst生成
-        objects.add(new Obstacle(
-          int(random(3f)),
-          pulse(abs(randomGaussian() * 64f), 128f) + abs(randomGaussian() * 16) + 16,
-          random(TAU),
-          CameraX + width * 1.6f,
-          CameraY + stage.me.vy - height + random(height * 3),
-          v.x,
-          v.y
-          ));
-      }
-      for(int k = 0; k < 4 * products; k++) {
-        objects.add(new Background(
-          .15f + random(.4f), #EEFF6F, 4f + abs(randomGaussian()),
-          CameraX + width * (2.6f + random(0.4f)),
-          CameraY + stage.me.vy - height * 2 + random(height * 5)
-          ));
+        stage.Notyet();
+        stage = buf;
+        stage.Init();
+        stage.Play();
       }
     }
-    preCameraX = CameraX;
-    preCameraY = CameraY;
   }
   
-  stage.Update();
 }
 
 void Draw() {
@@ -95,7 +115,7 @@ void Draw() {
     obj.Draw();
   }
   
-  if(stage.isPause()) {
+  if(!stage.isPlay()) {
     PGraphics pg = layers.get("MENU");
     pg.beginDraw();
     pg.pushStyle();

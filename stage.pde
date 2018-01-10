@@ -29,7 +29,7 @@ interface Mode {
 }
 
 class Stage implements Field {
-  PVector r;
+  PVector r, s;
   int column;
   
   String name;
@@ -42,21 +42,36 @@ class Stage implements Field {
   int playerHP = 3;
   Player me;
   
-  int state = State.PLAY, judge = State.NOTYET;
+  int state,judge;
   int mode = Mode.LONG;
   
   Stage(String name, int column) {
     this.name = name;
     this.column = column;
     r = new PVector();
+    s = new PVector();
+    setLocation();
+    state = judge = State.NOTYET;
+  }
+  
+  void setLocation() {
     r.x = column * 32f + 128f;
     r.y = 128f + column * 48f;
+    pushStyle();
+    int fontSize = 24;
+    textSize(fontSize);
+    s.set(textWidth("* " + name), fontSize);
+    popStyle();
   }
   
   void Init() {
     objects = new ArrayList();
     me = new Player();
     objects.add(me);
+  }
+  
+  void Notyet() {
+    state = State.NOTYET;
   }
   
   void Play() {
@@ -75,7 +90,7 @@ class Stage implements Field {
       pg.translate(r.x, r.y);
       pg.textAlign(LEFT, TOP);
       pg.fill(16f);
-      pg.textSize(24);
+      pg.textSize(s.y);
       pg.text("* " + name, 0f, 0f);
     pg.popMatrix();
     pg.popStyle();
@@ -83,12 +98,21 @@ class Stage implements Field {
   }
   
   void Update() {
-    print("* game : " + judge + "\n");
+    //print("* game : " + judge + "\n");
+    setLocation();
     if(judge == State.NOTYET) {
       if(me.HP <= 0) judge = State.FAILED;
-      else if(me.getDistance() >= targetDistance) judge = State.CLEAR;
-      state = State.PAUSE;
-    }
+      else if(me.getDistance() >= targetDistance)
+        judge = State.CLEAR;
+    } else state = State.PAUSE;
+  }
+  
+  boolean isOverlap() {
+    return (r.x <= mouseX && mouseX <= r.x + s.x) && (r.y <= mouseY && mouseY <= r.y + s.y);
+  }
+  
+  boolean isPlay() {
+    return state == State.PLAY;
   }
   
   boolean isPause() {
