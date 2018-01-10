@@ -46,7 +46,7 @@ class Obstacle extends Matrix {
   void Draw() {
     pushStyle();
     pushMatrix();
-      translate(x - CameraX, y - CameraY);
+      translate(x - camera.x, y - camera.y);
       textAlign(CENTER, BOTTOM);
       text("* HP *  " + HP, 0f, - size);
       rotate(angle);

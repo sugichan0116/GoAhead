@@ -118,7 +118,7 @@ class Player extends Matrix{
     if(invincibleTime > 0 || unCollisionTime % 2 == 0) {
       //object
       pushMatrix();
-        translate(x - CameraX, y - CameraY);
+        translate(x - camera.x, y - camera.y);
         rotate(angle);
         //本体
         imageMode(CENTER);
@@ -170,14 +170,14 @@ class Player extends Matrix{
   }
     
   void optifineCamera() {
-    if(x - CameraX <= width * shiftCameraRate)
-      CameraX = min(x - width * shiftCameraRate, CameraX + Framed(vx) - 1);
-    else if(x - CameraX >= width * (.6f - shiftCameraRate))
-      CameraX = max(x - width * (.6f - shiftCameraRate),CameraX + Framed(vx) + 1);
-    if(y - CameraY <= height * shiftCameraRate)
-      CameraY = min(y - height * shiftCameraRate, CameraY + Framed(vy) - 1);
-    else if(y - CameraY >= height * (1f - shiftCameraRate))
-      CameraY = max(y - height * (1f - shiftCameraRate), CameraY + Framed(vy) + 1);;
+    if(x - camera.x <= width * shiftCameraRate)
+      camera.x = min(x - width * shiftCameraRate, camera.x + Framed(vx) - 1);
+    else if(x - camera.x >= width * (.6f - shiftCameraRate))
+      camera.x = max(x - width * (.6f - shiftCameraRate),camera.x + Framed(vx) + 1);
+    if(y - camera.y <= height * shiftCameraRate)
+      camera.y = min(y - height * shiftCameraRate, camera.y + Framed(vy) - 1);
+    else if(y - camera.y >= height * (1f - shiftCameraRate))
+      camera.y = max(y - height * (1f - shiftCameraRate), camera.y + Framed(vy) + 1);;
     
   }
   

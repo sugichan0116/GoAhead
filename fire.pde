@@ -25,7 +25,7 @@ class Fire extends Wave {
     noStroke();
     fill(inColor, 255 * leftTime / maxTime);
     pushMatrix();
-      translate(x - CameraX, y - CameraY);
+      translate(x - camera.x, y - camera.y);
       rotate(angle);
       //本体
       ellipseMode(CENTER);

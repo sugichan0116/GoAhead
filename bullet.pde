@@ -30,7 +30,7 @@ class Bullet extends Obstacle {
   void Draw() {
     pushStyle();
     pushMatrix();
-      translate(x - CameraX, y - CameraY);
+      translate(x - camera.x, y - camera.y);
       rotate(angle);
       imageMode(CENTER);
       if(isCollision == false || leftTime % 2 == 0) {

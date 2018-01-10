@@ -3,13 +3,20 @@
 class Item extends Obstacle {
   int ID;
   float approachRangeRate, moveResist;
-  String iconName[];
+  String[] iconName, description;
   
   Item(int id, float size, float x, float y, float vx, float vy) {
     iconName = new String[] {
       "ITEM_REPAIR", "HEART_EMPTY",
       "ITEM_BULLET_RED", "ITEM_BULLET_BLUE", "ITEM_BULLET_GREEN",
       "ITEM_STAR"};
+    description = new String[] {
+      "Repair +1 HP",
+      "IMPROVE +1 max HP",
+      "The RED bullet, Larger Range",
+      "The BLUE bullet, More Bullet",
+      "The GREEN bullet, Higher Power",
+      "You Are * Invincible *"};
     waveColor = color(#50FF36);
     ID = id;
     approachRangeRate = 8.0f;
@@ -25,7 +32,7 @@ class Item extends Obstacle {
   void Draw() {
     pushStyle();
     pushMatrix();
-      translate(x - CameraX, y - CameraY);
+      translate(x - camera.x, y - camera.y);
       imageMode(CENTER);
       if(isCollision == false || leftTime % 2 == 0) {
         image(icons.get(iconName[ID]), 0, 0, size, size);
@@ -50,8 +57,15 @@ class Item extends Obstacle {
     isCollision = true;
     
     itemEffects(stage.me);
+    produceText("Item get!", 36f, width / 2f, height / 2f);
+    produceText(description[ID], 24f, width / 2f, height / 2f + 36f);
     produceWave();
     playSound("ITEM", 0);
+  }
+  
+  void produceText(String text, float size, float x, float y) {
+    objects.add(new Description(
+        text, size, x, y));
   }
   
   void itemEffects(Player temp) {

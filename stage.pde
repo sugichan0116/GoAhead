@@ -35,7 +35,7 @@ class Stage implements Field {
   
   String name;
   
-  float targetDistance = 3000f;
+  float targetDistance = 8000f;
   float targetTime = 30f;
   
   float spornRate = 1f;
@@ -69,6 +69,8 @@ class Stage implements Field {
     objects = new ArrayList();
     me = new Player();
     objects.add(me);
+    camera.set(0f, 0f);
+    defCamera.set(0f, 0f);
   }
   
   void Notyet() {

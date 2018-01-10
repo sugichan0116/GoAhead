@@ -27,13 +27,17 @@ class Wave extends Matrix {
     this.vy = vy;
   }
   
+  float getTimeRate() {
+    return float(leftTime) / float(maxTime);
+  }
+  
   void Draw() {
     //object
     pushStyle();
     noFill();
-    stroke(outColor, 255 * leftTime / maxTime);
+    stroke(outColor, 255 * getTimeRate());
     pushMatrix();
-      translate(x - CameraX, y - CameraY);
+      translate(x - camera.x, y - camera.y);
       rotate(angle);
       //本体
       ellipseMode(CENTER);

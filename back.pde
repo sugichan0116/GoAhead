@@ -16,7 +16,7 @@ class Background extends Matrix {
     pushMatrix();
       translate(width / 2f, height / 2f);
       scale(coodinateScale);
-      translate(x - CameraX - width / 2f, y - CameraY - height / 2f);
+      translate(x - camera.x - width / 2f, y - camera.y - height / 2f);
       ellipseMode(CENTER);
       ellipse(0, 0, size, size);
     popMatrix();
@@ -25,6 +25,6 @@ class Background extends Matrix {
   }
   
   boolean isDestroyed() {
-    return ((CameraX - x) * coodinateScale > size * 2 + width * 0.6f);
+    return ((camera.x - x) * coodinateScale > size * 2 + width * 0.6f);
   }
 }

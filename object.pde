@@ -25,7 +25,7 @@ class Matrix implements Object, Utility{
   
   void Draw() {
     pushMatrix();
-      translate(x - CameraX, y - CameraY);
+      translate(x - camera.x, y - camera.y);
       rotate(angle);
       rectMode(CENTER);
       rect(0, 0, size, size);
@@ -148,6 +148,6 @@ class Matrix implements Object, Utility{
   }
   
   boolean isDestroyed() {
-    return (CameraX - size * 2 - width * 0.6f > x);
+    return (camera.x - size * 2 - width * 0.6f > x);
   }
 }

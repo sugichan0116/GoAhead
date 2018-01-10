@@ -49,15 +49,15 @@ void Update() {
     }
     
     //object produce
-    int products = int((CameraX - preCameraX) / 64f);
+    int products = int((camera.x - defCamera.x) / 64f);
     if(products > 1) {
       for(int i = 0; i < products; i++) {
         if(int(random(8f)) == 0) {
           //item生成
           objects.add(new Item(
             int(random(6f)), 16f, 
-            CameraX + width * 1.6f,
-            CameraY + stage.me.vy - height + random(height * 3),
+            camera.x + width * 1.6f,
+            camera.y + stage.me.vy - height + random(height * 3),
             0f, 0f
             ));
         } else {
@@ -68,8 +68,8 @@ void Update() {
             int(random(3f)),
             pulse(abs(randomGaussian() * 64f), 128f) + abs(randomGaussian() * 16) + 16,
             random(TAU),
-            CameraX + width * 1.6f,
-            CameraY + stage.me.vy - height + random(height * 3),
+            camera.x + width * 1.6f,
+            camera.y + stage.me.vy - height + random(height * 3),
             v.x,
             v.y
             ));
@@ -77,13 +77,12 @@ void Update() {
         for(int k = 0; k < 4 * products; k++) {
           objects.add(new Background(
             .15f + random(.4f), #EEFF6F, 4f + abs(randomGaussian()),
-            CameraX + width * (2.6f + random(0.4f)),
-            CameraY + stage.me.vy - height * 2 + random(height * 5)
+            camera.x + width * (2.6f + random(0.4f)),
+            camera.y + stage.me.vy - height * 2 + random(height * 5)
             ));
         }
       }
-      preCameraX = CameraX;
-      preCameraY = CameraY;
+      defCamera.set(camera);
     }
     
     stage.Update();

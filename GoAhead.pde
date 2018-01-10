@@ -25,8 +25,9 @@ Stage stage;
 //pressflag
 boolean isMousePressed;
 //cameras
-float CameraX = 0, CameraY = 0;
-float preCameraX, preCameraY;
+PVector camera, defCamera;
+//float CameraX = 0, CameraY = 0;
+//float preCameraX, preCameraY;
 
 /* materials */
 //icon配列
@@ -97,6 +98,8 @@ void setup() {
   
   
   fields = new ArrayList<Field>();
+  camera = new PVector();
+  defCamera = new PVector();
   
   //debug
   stage = new Stage("PIONIOR", 0);
