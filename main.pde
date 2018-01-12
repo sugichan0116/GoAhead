@@ -136,9 +136,11 @@ void DrawMenu() {
   pg.pushMatrix();
     pg.textAlign(RIGHT, TOP);
     pg.noStroke();
-    pg.fill(128, 196);
-    pg.textSize(48);
-    pg.text("GoAhead", width - 16f, 32f);
+    pg.fill(255, 196);
+    pg.textFont(font_Title);
+    pg.textSize(64);
+    pg.text("Go AHEAD", width - 16f, 32f);
+    pg.fill(196, 196);
     pg.quad(
       32f, 32f,
       32f + width * .4f, 32f,

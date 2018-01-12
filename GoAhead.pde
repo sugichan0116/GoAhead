@@ -35,7 +35,7 @@ HashMap<String, PImage> icons;
 //layer
 HashMap<String, PGraphics> layers;
 //font
-PFont font;
+PFont font, font_Title, font_Menu;
 //sound
 Minim minim;
 HashMap<String, AudioPlayer> sounds;
@@ -95,7 +95,8 @@ void setup() {
   layers.put("MENU", createGraphics(width, height));
   
   font = loadFont(path + "Molot-48.vlw");
-  
+  font_Title = loadFont(path + "LemonChicken-72.vlw");
+  font_Menu = loadFont(path + "SakkalMajallaBold-48.vlw");
   
   fields = new ArrayList<Field>();
   camera = new PVector();

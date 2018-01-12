@@ -32,6 +32,7 @@ interface Mode {
 class Stage implements Field {
   protected PVector r, s;
   protected int column;
+  protected float fontSize;
   
   protected String name;
   
@@ -46,11 +47,12 @@ class Stage implements Field {
   protected Player me;
   
   protected int state,judge;
-  protected int mode = Mode.TIME | Mode.LONG;
+  protected int mode = Mode.FREE | Mode.LONG;
   
   Stage(String name, int column) {
     this.name = name;
     this.column = column;
+    fontSize = 36f;
     r = new PVector();
     s = new PVector();
     setLocation();
@@ -61,7 +63,7 @@ class Stage implements Field {
     r.x = column * 36f + 96f;
     r.y = 64f + column * 48f;
     pushStyle();
-    int fontSize = 24;
+    textFont(font_Menu);
     textSize(fontSize);
     s.set(textWidth("* " + name), fontSize);
     popStyle();
@@ -101,7 +103,8 @@ class Stage implements Field {
         pg.translate(32f, height - 32f);
         pg.textAlign(LEFT, TOP);
         pg.fill(#A7A7A7);
-        pg.textSize(24f);
+        pg.textFont(font_Title);
+        pg.textSize(fontSize);
         pg.text("Time : " + String.format("%4.1f", leftTime) + " / " +
           String.format("%4.1f", targetTime), 0f, 0f);
       pg.popMatrix();
@@ -117,7 +120,8 @@ class Stage implements Field {
     pg.pushMatrix();
       pg.translate(r.x, r.y);
       pg.textAlign(LEFT, TOP);
-      pg.fill((isOverlap()) ? #FF8243 : #A7A7A7);
+      pg.fill((isOverlap()) ? #FFA962 : #2C2C2C);
+      pg.textFont(font_Menu);
       pg.textSize(s.y);
       pg.text("* " + name + ((isPause()) ? "[Pause]" : ""), 0f, 0f);
     pg.popMatrix();
