@@ -56,6 +56,7 @@ void setup() {
       {"ITEM_BULLET_BLUE", "item_blue.png"},
       {"ITEM_BULLET_GREEN", "item_green.png"},
       {"ITEM_STAR", "star.png"},
+      {"ITEM_FOOD", "bag.png"},
       {"ROCK_1", "rock.png"},
       {"ROCK_2", "rock2.png"},
       {"ROCK_3", "rock3.png"},

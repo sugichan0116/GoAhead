@@ -1,17 +1,18 @@
 
 
 class Item extends Obstacle {
-  int ID;
-  float approachRangeRate, moveResist;
-  String[] iconName, description;
-  String title, explain;
-  float fontSize_NORMAL, fontSize_TITLE;
+  private int ID;
+  private float approachRangeRate, moveResist;
+  private String[] iconName, description;
+  private String title, explain;
+  private float fontSize_NORMAL, fontSize_TITLE;
+  private final float timeRepair = 8f;
   
   Item(int id, float size, float x, float y, float vx, float vy) {
     iconName = new String[] {
       "ITEM_REPAIR", "HEART_EMPTY",
       "ITEM_BULLET_RED", "ITEM_BULLET_BLUE", "ITEM_BULLET_GREEN",
-      "ITEM_STAR"};
+      "ITEM_STAR", "ITEM_FOOD"};
     title = "Item get !";
     description = new String[] {
       "Repair +1 HP",
@@ -19,7 +20,8 @@ class Item extends Obstacle {
       "The RED bullet, Larger Range",
       "The BLUE bullet, More Bullet",
       "The GREEN bullet, Higher Power",
-      "You Are * Invincible *"};
+      "You Are * Invincible *",
+      "The Food, +" + int(timeRepair) + " seconds"};
     explain = "Press *ANY KEY*";
     fontSize_NORMAL = 24f;
     fontSize_TITLE = 36f;
@@ -82,25 +84,28 @@ class Item extends Obstacle {
   void itemEffects(Player temp) {
     switch(ID) {
       case 0:
-        temp.HP = min(temp.maxHP, temp.HP + 1);
+        temp.addHP(1);
         break;
       case 1:
-        temp.maxHP = min(temp.upperLimitHP, temp.maxHP + 1);
+        temp.addMaxHP(1);
         break;
       case 2:
-        temp.shootBulletDirection += 1;
-        temp.bulletID = 0;
+        temp.addBullet(1);
+        temp.setBulletColor(0);
         break;
       case 3:
-        temp.shootBulletDirection += 1;
-        temp.bulletID = 1;
+        temp.addBullet(1);
+        temp.setBulletColor(1);
         break;
       case 4:
-        temp.shootBulletDirection += 1;
-        temp.bulletID = 2;
+        temp.addBullet(1);
+        temp.setBulletColor(2);
         break;
       case 5:
-        temp.invincibleTime += 30 * 16;
+        temp.setInvincibleTime(16.0f);
+        break;
+      case 6:
+        stage.repairTime(timeRepair);
         break;
     }
   }

@@ -72,6 +72,30 @@ class Player extends Matrix{
       radians(getBulletData("ACCURACY") * min(120, 20 + shootBulletDirection * 5));
   }
   
+  void addHP(int add) {
+    HP = min(maxHP, HP + add);
+  }
+  
+  void subHP(int sub) {
+    HP = max(0, HP - sub);
+  }
+  
+  void addMaxHP(int add) {
+    maxHP = max(upperLimitHP, maxHP + add);
+  }
+  
+  void addBullet(int add) {
+    shootBulletDirection += add;
+  }
+  
+  void setBulletColor(int ID) {
+    bulletID = ID;
+  }
+  
+  void setInvincibleTime(float time) {
+    invincibleTime = int(time * frameRate);
+  }
+  
   float getBulletData(String temp) {
     return bulletData.get(temp + bulletID);
   }

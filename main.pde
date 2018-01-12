@@ -18,16 +18,6 @@ void draw() {
   //system
   isMousePressed = false;
   
-  /*
-  print("* " + objects.size());
-  int n = 0, m = 0, k = 0;
-  for(Object temp : objects) {
-    if(temp instanceof Bullet) n++;
-    else if(temp instanceof Item) m++;
-    else if(temp instanceof Obstacle) k++;
-  }
-  print(" @ [" + n + "] [" + m + "] [" + k + "]\n");
-  */
 }
 
 void Update() {
@@ -55,7 +45,7 @@ void Update() {
         if(int(random(8f)) == 0) {
           //item生成
           objects.add(new Item(
-            int(random(6f)), 16f, 
+            int(random(7f)), 16f, 
             camera.x + width * 1.6f,
             camera.y + stage.me.vy - height + random(height * 3),
             0f, 0f

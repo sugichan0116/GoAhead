@@ -47,7 +47,7 @@ class Stage implements Field {
   protected Player me;
   
   protected int state,judge;
-  protected int mode = Mode.FREE | Mode.LONG;
+  protected int mode = Mode.TIME | Mode.LONG;
   
   Stage(String name, int column) {
     this.name = name;
@@ -75,6 +75,7 @@ class Stage implements Field {
     objects.add(me);
     camera.set(0f, 0f);
     defCamera.set(0f, 0f);
+    leftTime = 0f;
   }
   
   void Reset() {
@@ -94,6 +95,10 @@ class Stage implements Field {
     else DrawMenu();
   }
   
+  void repairTime(float time) {
+    leftTime = max(0f, leftTime - time);
+  }
+  
   void DrawUI() {
     if(isTIME()) {
       PGraphics pg = layers.get("UI");
@@ -103,7 +108,7 @@ class Stage implements Field {
         pg.translate(32f, height - 32f);
         pg.textAlign(LEFT, TOP);
         pg.fill(#A7A7A7);
-        pg.textFont(font_Title);
+        pg.textFont(font);
         pg.textSize(fontSize);
         pg.text("Time : " + String.format("%4.1f", leftTime) + " / " +
           String.format("%4.1f", targetTime), 0f, 0f);
