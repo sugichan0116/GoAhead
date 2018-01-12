@@ -1,8 +1,8 @@
 
 class Wave extends Matrix {
-  int leftTime, maxTime;
-  float extendSpeed;
-  color outColor, inColor;
+  protected int leftTime, maxTime;
+  protected float extendSpeed;
+  protected color outColor, inColor;
   
   Wave() {
     this(30);

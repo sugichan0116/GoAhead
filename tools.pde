@@ -3,6 +3,10 @@ float Framed(float num) {
   return num / frameRate;
 }
 
+boolean checkBit(int target, int filter) {
+  return (target & filter) == filter;
+}
+
 float pulse(float num, float filter) {
   return (abs(num) >= filter) ? num : 0f;
 }

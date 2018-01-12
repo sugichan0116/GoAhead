@@ -4,12 +4,15 @@ class Item extends Obstacle {
   int ID;
   float approachRangeRate, moveResist;
   String[] iconName, description;
+  String title, explain;
+  float fontSize_NORMAL, fontSize_TITLE;
   
   Item(int id, float size, float x, float y, float vx, float vy) {
     iconName = new String[] {
       "ITEM_REPAIR", "HEART_EMPTY",
       "ITEM_BULLET_RED", "ITEM_BULLET_BLUE", "ITEM_BULLET_GREEN",
       "ITEM_STAR"};
+    title = "Item get !";
     description = new String[] {
       "Repair +1 HP",
       "IMPROVE +1 max HP",
@@ -17,6 +20,9 @@ class Item extends Obstacle {
       "The BLUE bullet, More Bullet",
       "The GREEN bullet, Higher Power",
       "You Are * Invincible *"};
+    explain = "Press *ANY KEY*";
+    fontSize_NORMAL = 24f;
+    fontSize_TITLE = 36f;
     waveColor = color(#50FF36);
     ID = id;
     approachRangeRate = 8.0f;
@@ -57,10 +63,15 @@ class Item extends Obstacle {
     isCollision = true;
     
     itemEffects(stage.me);
-    produceText("Item get!", 36f, width / 2f, height / 2f);
-    produceText(description[ID], 24f, width / 2f, height / 2f + 36f);
+    produceText(title, fontSize_TITLE, width / 2f, height / 2f);
+    produceText(description[ID], fontSize_NORMAL, width / 2f, height / 2f + 36f);
+    if(isBullet()) produceText(explain, fontSize_NORMAL, width / 2f, height - 36f);
     produceWave();
     playSound("ITEM", 0);
+  }
+  
+  boolean isBullet() {
+    return (ID == 2 || ID == 3 || ID == 4);
   }
   
   void produceText(String text, float size, float x, float y) {

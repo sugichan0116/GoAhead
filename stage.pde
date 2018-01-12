@@ -30,21 +30,23 @@ interface Mode {
 
 
 class Stage implements Field {
-  PVector r, s;
-  int column;
+  protected PVector r, s;
+  protected int column;
   
-  String name;
+  protected String name;
   
-  float targetDistance = 8000f;
-  float targetTime = 30f;
+  protected float targetDistance = 8000f;
+  protected float targetTime = 30f;
   
-  float spornRate = 1f;
+  protected float spornRate = 1f;
   
-  int playerHP = 3;
-  Player me;
+  private float leftTime = 0f;
   
-  int state,judge;
-  int mode = Mode.FREE;
+  protected int playerHP = 3;
+  protected Player me;
+  
+  protected int state,judge;
+  protected int mode = Mode.TIME | Mode.LONG;
   
   Stage(String name, int column) {
     this.name = name;
@@ -73,8 +75,8 @@ class Stage implements Field {
     defCamera.set(0f, 0f);
   }
   
-  void Notyet() {
-    state = State.NOTYET;
+  void Reset() {
+    state = judge = State.NOTYET;
   }
   
   void Play() {
@@ -86,6 +88,29 @@ class Stage implements Field {
   }
   
   void Draw() {
+    if(isPlay()) DrawUI();
+    else DrawMenu();
+  }
+  
+  void DrawUI() {
+    if(isTIME()) {
+      PGraphics pg = layers.get("UI");
+      pg.beginDraw();
+      pg.pushStyle();
+      pg.pushMatrix();
+        pg.translate(32f, height - 32f);
+        pg.textAlign(LEFT, TOP);
+        pg.fill(#A7A7A7);
+        pg.textSize(24f);
+        pg.text("Time : " + String.format("%4.1f", leftTime) + " / " +
+          String.format("%4.1f", targetTime), 0f, 0f);
+      pg.popMatrix();
+      pg.popStyle();
+      pg.endDraw();
+    }
+  }
+  
+  void DrawMenu() {
     PGraphics pg = layers.get("MENU");
     pg.beginDraw();
     pg.pushStyle();
@@ -94,27 +119,66 @@ class Stage implements Field {
       pg.textAlign(LEFT, TOP);
       pg.fill((isOverlap()) ? #FF8243 : #A7A7A7);
       pg.textSize(s.y);
-      pg.text("* " + name, 0f, 0f);
+      pg.text("* " + name + ((isPause()) ? "[Pause]" : ""), 0f, 0f);
     pg.popMatrix();
     pg.popStyle();
     pg.endDraw();
   }
   
   void Update() {
-    //print("* game : " + judge + "\n");
+    print("* game : " + isOver() + "/" + isClear() + "/" + isFailed() + "\n");
+    leftTime += 1f / frameRate;
+    print("* " + int(leftTime) + "/" + targetTime + "\n");
+    
     setLocation();
-    if(judge == State.NOTYET) {
-      if(mode == Mode.LONG) {
+    if(!isOver()) {
+      if(isLONG()) {
         if(me.getDistance() >= targetDistance)
           judge = State.CLEAR;
       }
-      if(mode == Mode.TIME) {
-        
+      if(isTIME()) {
+        if(isTimeUp())
+          judge = State.FAILED;
       }
       
       if(me.HP <= 0) judge = State.FAILED;
-    } else state = State.PAUSE;
+    } 
+    else state = State.PAUSE;
+    
   }
+  
+  float getDistance() {
+    return targetDistance;
+  }
+  
+  float getTime() {
+    return leftTime;
+  }
+  
+  boolean isLONG() {
+    //print("* @" + mode + "/" + Mode.LONG + "/" + checkBit(mode,Mode.LONG) + "\n");
+    return checkBit(mode, Mode.LONG);
+  }
+  
+  boolean isTIME() {
+    return checkBit(mode, Mode.TIME);
+  }
+  
+  boolean isFREE() {
+    return checkBit(mode, Mode.FREE);
+  }
+  
+  boolean isDESTROY() {
+    return checkBit(mode, Mode.DESTROY);
+  }
+  
+  boolean isTimeUp() {
+    return targetTime <= leftTime;
+  }
+  
+  //float nowTime() {
+  //  return float(leftTime) / frameRate;
+  //}
   
   boolean isOverlap() {
     return (r.x <= mouseX && mouseX <= r.x + s.x) && (r.y <= mouseY && mouseY <= r.y + s.y);
@@ -126,6 +190,10 @@ class Stage implements Field {
   
   boolean isPause() {
     return state == State.PAUSE;
+  }
+  
+  boolean isOver() {
+    return judge != State.NOTYET;
   }
   
   boolean isClear() {

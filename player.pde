@@ -2,24 +2,24 @@ import java.text.MessageFormat;
 
 //プレイヤーメインクラス
 class Player extends Matrix{
-  int HP, maxHP, upperLimitHP;
+  protected int HP, maxHP, upperLimitHP;
   
-  int ID;
-  String[] iconKey;
-  int soundOrder;
-  String[] soundKey;
+  protected int ID;
+  protected String[] iconKey;
+  protected int soundOrder;
+  protected String[] soundKey;
   
-  int moveCoolTime, unCollisionTime, moveMaxCoolTime;
-  float moveResist, moveMaxVelocity;
-  float moveDirection, moveDirectionVelocity;
+  protected int moveCoolTime, unCollisionTime, moveMaxCoolTime;
+  protected float moveResist, moveMaxVelocity;
+  protected float moveDirection, moveDirectionVelocity;
   
-  int shootCoolTime, shootMaxCoolTime, shootBulletDamage;
-  int shootBulletDirection, shootBulletTime, bulletID;
-  float shootAccuracy;
-  float shootVelocity, shootBulletSize, shootAngleRange;
+  protected int shootCoolTime, shootMaxCoolTime, shootBulletDamage;
+  protected int shootBulletDirection, shootBulletTime, bulletID;
+  protected float shootAccuracy;
+  protected float shootVelocity, shootBulletSize, shootAngleRange;
   
-  int invincibleTime;
-  HashMap<String, Float> bulletData;
+  protected int invincibleTime;
+  protected HashMap<String, Float> bulletData;
   final float shiftCameraRate = 0.3f;
   
   Player() {
@@ -111,7 +111,9 @@ class Player extends Matrix{
     pg.text("HP : " + HP + " / " + maxHP, 32, 16);
     pg.textAlign(RIGHT, BOTTOM);
     pg.textSize(28);
-    pg.text("" + String.format("%,3.1f m", getDistance()), width - 32, height - 32);
+    pg.text(String.format("%,3.1f ", getDistance())
+      + ((stage.isLONG()) ? ("/ " + String.format("%,3.1f m", stage.getDistance())) : "m"),
+      width - 32, height - 32);
     pg.popStyle();
     pg.endDraw();
     

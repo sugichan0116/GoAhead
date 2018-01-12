@@ -1,6 +1,6 @@
 
 class Description extends Wave {
-  String text;
+  private String text;
   
   Description() {
     this("* text *", 0f, 0f);

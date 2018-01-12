@@ -89,15 +89,15 @@ void Update() {
   } else if(stage.isPlay() == false) {
     Stage buf = null;
     for(Field temp: fields) {
-      temp.Draw();
+      //temp.Draw();
       if(isMousePressed && ((Stage)temp).isOverlap()) buf = (Stage)temp;
     }
     if(buf != null) {
-      print("* " + stage.state + "\n");
-      if(buf.state == State.PAUSE) {
+      //print("* " + stage.state + "\n");
+      if(buf.isPause()) {
         stage.Play();
       } else {
-        stage.Notyet();
+        stage.Reset();
         stage = buf;
         stage.Init();
         stage.Play();
@@ -114,24 +114,9 @@ void Draw() {
     obj.Draw();
   }
   
-  if(!stage.isPlay()) {
-    PGraphics pg = layers.get("MENU");
-    pg.beginDraw();
-    pg.pushStyle();
-    pg.pushMatrix();
-      pg.textAlign(RIGHT, TOP);
-      pg.noStroke();
-      pg.fill(128, 196);
-      pg.textSize(48);
-      pg.text("GoAhead", width - 16f, 32f);
-      pg.quad(
-        32f, 32f,
-        32f + width * .4f, 32f,
-        32f + 32f / 48f * ( height - 32f ) + width * .4f, height - 32f,
-        32f + 32f / 48f * ( height - 32f ), height - 32f );
-    pg.popMatrix();
-    pg.popStyle();
-    pg.endDraw();
+  if(stage.isPlay()) stage.Draw();
+  else {
+    DrawMenu();
     for(Field temp: fields) {
       temp.Draw();
     }
@@ -142,6 +127,26 @@ void Draw() {
   for(Map.Entry set : layers.entrySet()) {
     image((PGraphics)set.getValue(), 0, 0);
   }
+}
+
+void DrawMenu() {
+  PGraphics pg = layers.get("MENU");
+  pg.beginDraw();
+  pg.pushStyle();
+  pg.pushMatrix();
+    pg.textAlign(RIGHT, TOP);
+    pg.noStroke();
+    pg.fill(128, 196);
+    pg.textSize(48);
+    pg.text("GoAhead", width - 16f, 32f);
+    pg.quad(
+      32f, 32f,
+      32f + width * .4f, 32f,
+      32f + 32f / 48f * ( height - 32f ) + width * .4f, height - 32f,
+      32f + 32f / 48f * ( height - 32f ), height - 32f );
+  pg.popMatrix();
+  pg.popStyle();
+  pg.endDraw();
 }
 
 void mousePressed() {

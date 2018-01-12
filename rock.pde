@@ -1,14 +1,14 @@
 
 
 class Obstacle extends Matrix {
-  int ID;
-  String[] iconKey;
-  boolean isCollision;
-  int leftTime;
-  String[] soundKey;
-  int giveUnCollisionTime;
-  color waveColor;
-  int HP;
+  protected int ID;
+  protected String[] iconKey;
+  protected boolean isCollision;
+  protected int leftTime;
+  protected String[] soundKey;
+  protected int giveUnCollisionTime;
+  protected color waveColor;
+  protected int HP;
   
   Obstacle() {
     this(0, 16f, 0f, 0f, 0f);
@@ -47,8 +47,8 @@ class Obstacle extends Matrix {
     pushStyle();
     pushMatrix();
       translate(x - camera.x, y - camera.y);
-      textAlign(CENTER, BOTTOM);
-      text("* HP *  " + HP, 0f, - size);
+      //textAlign(CENTER, BOTTOM);
+      //text("* HP *  " + HP, 0f, - size);
       rotate(angle);
       imageMode(CENTER);
       if(isCollision == false || leftTime % 2 == 0) {
