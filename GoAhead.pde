@@ -111,5 +111,5 @@ void setup() {
   fields.add(new Stage("VOYAGER", 1));
   fields.add(new Stage("PLUTO", 2));
   fields.add(new Stage("MOON", 3));
-  fields.add(new Stage("APOLO", 4));
+  fields.add(new Stage("APOLLO", 4));
 }
