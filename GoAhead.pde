@@ -117,18 +117,8 @@ void setup() {
       ));
   }
   
+  //debug
   stage = (Stage)fields.get(0);
   stage.Init();
-    
-  //debug
-  /*
-  stage = new Stage("PIONIOR", 0);
-  stage.state = State.PLAY;
-  fields.add(stage);
-  stage.Init();
-  fields.add(new Stage("VOYAGER", 1));
-  fields.add(new Stage("PLUTO", 2));
-  fields.add(new Stage("MOON", 3));
-  fields.add(new Stage("APOLLO", 4));
-  */
+  
 }

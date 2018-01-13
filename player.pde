@@ -2,24 +2,24 @@ import java.text.MessageFormat;
 
 //プレイヤーメインクラス
 class Player extends Matrix{
-  protected int HP, maxHP, upperLimitHP;
+  private int HP, maxHP, upperLimitHP;
   
-  protected int ID;
-  protected String[] iconKey;
-  protected int soundOrder;
-  protected String[] soundKey;
+  private int ID;
+  private String[] iconKey;
+  private int soundOrder;
+  private String[] soundKey;
   
-  protected int moveCoolTime, unCollisionTime, moveMaxCoolTime;
-  protected float moveResist, moveMaxVelocity;
-  protected float moveDirection, moveDirectionVelocity;
+  private int moveCoolTime, unCollisionTime, moveMaxCoolTime;
+  private float moveResist, moveMaxVelocity;
+  private float moveDirection, moveDirectionVelocity;
   
-  protected int shootCoolTime, shootMaxCoolTime, shootBulletDamage;
-  protected int shootBulletDirection, shootBulletTime, bulletID;
-  protected float shootAccuracy;
-  protected float shootVelocity, shootBulletSize, shootAngleRange;
+  private int shootCoolTime, shootMaxCoolTime, shootBulletDamage;
+  private int shootBulletDirection, shootBulletTime, bulletID;
+  private float shootVelocity, shootBulletSize, shootAngleRange;
   
-  protected int invincibleTime;
-  protected HashMap<String, Float> bulletData;
+  private int invincibleTime;
+  private final float invincibleVelocityRate = 2.0f;
+  private HashMap<String, Float> bulletData;
   final float shiftCameraRate = 0.3f;
   
   Player() {
@@ -102,6 +102,10 @@ class Player extends Matrix{
   
   boolean isDestroyed() {
     return !((HP >= 0) && (HP <= maxHP));
+  }
+  
+  boolean isInvincible() {
+    return invincibleTime > 0;
   }
   
   float getDistance() {
@@ -217,8 +221,10 @@ class Player extends Matrix{
   
   void tryMove() {
     if(mousePressed && isMousePressed) {
-      vx += Framed(moveMaxVelocity) * cos(moveDirection);
-      vy += Framed(moveMaxVelocity) * sin(moveDirection);
+      float velocity = Framed(moveMaxVelocity) * 
+        ((isInvincible()) ? invincibleVelocityRate : 1f);
+      vx += velocity * cos(moveDirection);
+      vy += velocity * sin(moveDirection);
       moveCoolTime = moveMaxCoolTime;
       moveDirectionVelocity = -moveDirectionVelocity;
       produceWave();
@@ -229,7 +235,9 @@ class Player extends Matrix{
   
   void produceBullet() {
     for(int n = 0; n < shootBulletDirection; n++) {
-      float direction = angle + (float(n) - float(shootBulletDirection - 1) / 2f) / shootBulletDirection * shootAngleRange;
+      float direction = angle + 
+        (float(n) - float(shootBulletDirection - 1) / 2f) / shootBulletDirection
+        * shootAngleRange;
       objects.add(new Bullet(
         bulletID,
         shootBulletDamage,
