@@ -6,7 +6,7 @@ class Item extends Obstacle {
   private String[] iconName, description;
   private String title, explain;
   private float fontSize_NORMAL, fontSize_TITLE;
-  private final float timeRepair = 8f;
+  private final float timeRepair = 4f;
   
   Item(int id, float size, float x, float y, float vx, float vy) {
     iconName = new String[] {

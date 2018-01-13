@@ -36,22 +36,25 @@ class Stage implements Field {
   
   protected String name;
   
-  protected float targetDistance = 8000f;
-  protected float targetTime = 30f;
+  protected float targetDistance;
+  protected float targetTime;
   
   protected float spornRate = 1f;
   
-  private float leftTime = 0f;
+  private float leftTime;
   
   protected int playerHP = 3;
   protected Player me;
   
-  protected int state,judge;
-  protected int mode = Mode.TIME | Mode.LONG;
+  private int state,judge;
+  private int mode;
   
-  Stage(String name, int column) {
+  Stage(String name, int column, int mode, float distance, float time) {
     this.name = name;
     this.column = column;
+    this.mode = mode;
+    this.targetDistance = distance;
+    this.targetTime = time;
     fontSize = 36f;
     r = new PVector();
     s = new PVector();
@@ -137,20 +140,26 @@ class Stage implements Field {
   void Update() {
     print("* game : " + isOver() + "/" + isClear() + "/" + isFailed() + "\n");
     leftTime += 1f / frameRate;
-    print("* " + int(leftTime) + "/" + targetTime + "\n");
+    print("* " + int(leftTime) + "/" + targetTime + "@" + judge + "/" + mode + "\n");
     
     setLocation();
     if(!isOver()) {
       if(isLONG()) {
-        if(me.getDistance() >= targetDistance)
+        if(me.getDistance() >= targetDistance) {
           judge = State.CLEAR;
+        }
       }
       if(isTIME()) {
-        if(isTimeUp())
+        if(isTimeUp()) {
+          print("* time up" + mode + "\n");
           judge = State.FAILED;
+        }
       }
       
-      if(me.HP <= 0) judge = State.FAILED;
+      if(me.HP <= 0) {
+          print("* you die" + mode + "\n");
+        judge = State.FAILED;
+      }
     } 
     else state = State.PAUSE;
     
@@ -184,10 +193,6 @@ class Stage implements Field {
   boolean isTimeUp() {
     return targetTime <= leftTime;
   }
-  
-  //float nowTime() {
-  //  return float(leftTime) / frameRate;
-  //}
   
   boolean isOverlap() {
     return (r.x <= mouseX && mouseX <= r.x + s.x) && (r.y <= mouseY && mouseY <= r.y + s.y);

@@ -26,8 +26,6 @@ Stage stage;
 boolean isMousePressed;
 //cameras
 PVector camera, defCamera;
-//float CameraX = 0, CameraY = 0;
-//float preCameraX, preCameraY;
 
 /* materials */
 //icon配列
@@ -39,6 +37,8 @@ PFont font, font_Title, font_Menu;
 //sound
 Minim minim;
 HashMap<String, AudioPlayer> sounds;
+//stage
+JSONArray stageData;
 
 void setup() {
   size(720, 480);
@@ -103,7 +103,25 @@ void setup() {
   camera = new PVector();
   defCamera = new PVector();
   
+  stageData = loadJSONArray("stage.json");
+  
+  for(int i = 0; i < stageData.size(); i++) {
+    JSONObject temp = stageData.getJSONObject(i);
+    
+    fields.add(new Stage(
+      temp.getString("name"),
+      i,
+      temp.getInt("mode"),
+      temp.getFloat("distance"),
+      temp.getFloat("time")
+      ));
+  }
+  
+  stage = (Stage)fields.get(0);
+  stage.Init();
+    
   //debug
+  /*
   stage = new Stage("PIONIOR", 0);
   stage.state = State.PLAY;
   fields.add(stage);
@@ -112,4 +130,5 @@ void setup() {
   fields.add(new Stage("PLUTO", 2));
   fields.add(new Stage("MOON", 3));
   fields.add(new Stage("APOLLO", 4));
+  */
 }

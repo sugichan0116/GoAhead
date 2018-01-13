@@ -1,0 +1,50 @@
+[
+  {
+    "name" : "Pionior",
+    "distance" : 3000.0,
+    "time" : 0.0,
+    "mode" : 2,
+    "item" :
+      {
+        "REPAIR" : true,
+        "HEART" : false,
+        "BULLET_RED" : false,
+        "BULLET_BLUE" : false,
+        "BULLET_GREEN" : false,
+        "STAR" : false,
+        "TIME" : false
+      },
+  },
+  {
+    "name" : "Voyager",
+    "distance" : 6000.0,
+    "time" : 30.0,
+    "mode" : 6,
+    "item" :
+      {
+        "REPAIR" : true,
+        "HEART" : false,
+        "BULLET_RED" : false,
+        "BULLET_BLUE" : false,
+        "BULLET_GREEN" : false,
+        "STAR" : false,
+        "TIME" : false
+      },
+  },
+  {
+    "name" : "Journey",
+    "distance" : 0.0,
+    "time" : 0.0,
+    "mode" : 1,
+    "item" :
+      {
+        "REPAIR" : true,
+        "HEART" : false,
+        "BULLET_RED" : false,
+        "BULLET_BLUE" : false,
+        "BULLET_GREEN" : false,
+        "STAR" : false,
+        "TIME" : false
+      },
+  }
+]

@@ -84,12 +84,13 @@ void Update() {
     }
     if(buf != null) {
       //print("* " + stage.state + "\n");
-      if(buf.isPause()) {
+      if(!buf.isOver() && buf.isPause()) {
         stage.Play();
       } else {
         stage.Reset();
         stage = buf;
         stage.Init();
+        stage.Reset();
         stage.Play();
       }
     }
