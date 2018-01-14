@@ -122,6 +122,11 @@ void Draw() {
 
 void DrawMenu() {
   PGraphics pg = layers.get("MENU");
+  PVector[] vertexs = new PVector[4];
+  vertexs[0] = new PVector(32f, 32f);
+  vertexs[1] = new PVector(32f + width * .4f, 32f);
+  vertexs[2] = new PVector(32f + 32f / 48f * ( height - 32f ) + width * .4f, height - 32f);
+  vertexs[3] = new PVector(32f + 32f / 48f * ( height - 32f ), height - 32f);
   pg.beginDraw();
   pg.pushStyle();
   pg.pushMatrix();
@@ -132,11 +137,15 @@ void DrawMenu() {
     pg.textSize(64);
     pg.text("Go AHEAD", width - 16f, 32f);
     pg.fill(196, 196);
-    pg.quad(
-      32f, 32f,
-      32f + width * .4f, 32f,
-      32f + 32f / 48f * ( height - 32f ) + width * .4f, height - 32f,
-      32f + 32f / 48f * ( height - 32f ), height - 32f );
+    pg.triangle(
+      vertexs[0].x, vertexs[0].y,
+      vertexs[1].x, vertexs[1].y,
+      vertexs[2].x, vertexs[2].y);
+    pg.fill(152, 196);
+    pg.triangle(
+      vertexs[2].x, vertexs[2].y,
+      vertexs[3].x, vertexs[3].y,
+      vertexs[0].x, vertexs[0].y);
   pg.popMatrix();
   pg.popStyle();
   pg.endDraw();
