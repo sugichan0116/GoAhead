@@ -81,7 +81,7 @@ class Player extends Matrix{
   }
   
   void addMaxHP(int add) {
-    maxHP = max(upperLimitHP, maxHP + add);
+    maxHP = min(upperLimitHP, maxHP + add);
   }
   
   void addBullet(int add) {
