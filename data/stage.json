@@ -12,7 +12,15 @@
       "BULLET_GREEN": false,
       "STAR": false,
       "TIME": false
-    }
+    },
+    "sporn": {
+      "ROCK": 1.0,
+      "PLANET": 1.0,
+      "SCALE": 0.5,
+      "ITEM": 1.0,
+      "DISTANCE": 1.0
+    },
+    "description": "～　あなたは宇宙を旅する。\nロケットに付いた、「衛星推力エンジン」で進み始めた。"
   },
   {
     "name": "Voyager",
@@ -27,7 +35,38 @@
       "BULLET_GREEN": false,
       "STAR": true,
       "TIME": true
-    }
+    },
+    "sporn": {
+      "ROCK": 1.5,
+      "PLANET": 1.0,
+      "SCALE": 0.8,
+      "ITEM": 1.0,
+      "DISTANCE": 1.0
+    },
+    "description": "～　あなたには時間がなかった。\n宇宙食は空っぽだった。生きるためにあなたは急いだ。"
+  },
+  {
+    "name": "Asteroids Belt",
+    "distance": 6000,
+    "time": 60,
+    "mode": 6,
+    "item": {
+      "REPAIR": true,
+      "HEART": true,
+      "BULLET_RED": true,
+      "BULLET_BLUE": true,
+      "BULLET_GREEN": true,
+      "STAR": false,
+      "TIME": true
+    },
+    "sporn": {
+      "ROCK": 1.5,
+      "PLANET": 1.5,
+      "SCALE": 0.8,
+      "ITEM": 2.0,
+      "DISTANCE": 1.1
+    },
+    "description": "～　背中を伝ったのは冷や汗だ。\n小惑星帯に迷い込んだあなたは、死に物狂いで進み続けた。"
   },
   {
     "name": "Journey",
@@ -42,6 +81,14 @@
       "BULLET_GREEN": true,
       "STAR": true,
       "TIME": false
-    }
+    },
+    "sporn": {
+      "ROCK": 1.0,
+      "PLANET": 1.0,
+      "SCALE": 1.0,
+      "ITEM": 1.0,
+      "DISTANCE": 1.2
+    },
+    "description": "～　あなたは航海が好きだ。\nなんのあてもなく、ただあなたはその宇宙を進み続けた。"
   }
 ]

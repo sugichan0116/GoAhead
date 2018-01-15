@@ -3,6 +3,33 @@ float Framed(float num) {
   return num / frameRate;
 }
 
+String timeToString(float time) {
+  return floatToString(time) + " s";
+}
+
+String timesToString(float time, float maxTime) {
+  return floatToString(time) + " / " +
+    floatToString(maxTime) + " s";
+}
+
+String distanceToString(float distance) {
+  return floatToString(distance) + " km";
+}
+
+String distancesToString(float distance, float maxDistance) {
+  return floatToString(distance) + " / " +
+    floatToString(maxDistance) + " km";
+}
+
+String distancesToStringNormal(boolean flag, float distance, float maxDistance) {
+  return (flag) ? distancesToString(distance, maxDistance)
+    : distanceToString(distance) ;
+}
+
+String floatToString(float num) {
+  return String.format("%,3.1f", num);
+}
+
 boolean checkBit(int target, int filter) {
   return (target & filter) == filter;
 }

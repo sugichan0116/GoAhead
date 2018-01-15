@@ -39,10 +39,14 @@ void Update() {
     }
     
     //object produce
-    int products = int((camera.x - defCamera.x) / 64f);
-    if(products > 1) {
-      for(int i = 0; i < products; i++) {
-        if(int(random(8f)) == 0) {
+    float base = (camera.x - defCamera.x) / 64f;
+    float rate = stage.sporns.get("ROCK")
+      * (1f + (stage.sporns.get("DISTANCE") - 1f)
+      * max(0f,log(stage.me.getDistance() / 1000f)));
+    if(base * rate > 1) {
+      
+      for(int i = 0; i < base * rate; i++) {
+        if(int(random(8f / stage.sporns.get("ITEM"))) == 0) {
           //item生成
           objects.add(new Item(
             stage.items, 16f, 
@@ -56,7 +60,8 @@ void Update() {
           //obst生成
           objects.add(new Obstacle(
             int(random(3f)),
-            pulse(abs(randomGaussian() * 64f), 128f) + abs(randomGaussian() * 16) + 16,
+            (pulse(abs(randomGaussian() * 64f) * stage.sporns.get("PLANET"), 128f)
+              + abs(randomGaussian() * 16) + 16f) * stage.sporns.get("SCALE"),
             random(TAU),
             camera.x + width * 1.6f,
             camera.y + stage.me.vy - height + random(height * 3),
@@ -64,14 +69,16 @@ void Update() {
             v.y
             ));
         }
-        for(int k = 0; k < 4 * products; k++) {
-          objects.add(new Background(
-            .15f + random(.4f), #EEFF6F, 4f + abs(randomGaussian()),
-            camera.x + width * (2.6f + random(0.4f)),
-            camera.y + stage.me.vy - height * 2 + random(height * 5)
-            ));
-        }
       }
+      
+      for(int k = 0; k < 4 * base; k++) {
+        objects.add(new Background(
+          .15f + random(.4f), #EEFF6F, 4f + abs(randomGaussian()),
+          camera.x + width * (2.6f + random(0.4f)),
+          camera.y + stage.me.vy - height * 2 + random(height * 5)
+          ));
+      }
+      
       defCamera.set(camera);
     }
     

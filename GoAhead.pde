@@ -24,7 +24,7 @@ HashMap<String, PImage> icons;
 //layer
 HashMap<String, PGraphics> layers;
 //font
-PFont font, font_Title, font_Menu;
+PFont font, font_Title, font_Menu, font_Desc;
 //sound
 Minim minim;
 HashMap<String, AudioPlayer> sounds;
@@ -89,6 +89,7 @@ void setup() {
   font = loadFont(path + "Molot-48.vlw");
   font_Title = loadFont(path + "LemonChicken-72.vlw");
   font_Menu = loadFont(path + "SakkalMajallaBold-48.vlw");
+  font_Desc = loadFont(path + "Honoka-Antique-Maru-48.vlw");
   
   fields = new ArrayList<Field>();
   camera = new PVector();
@@ -101,11 +102,13 @@ void setup() {
     
     fields.add(new Stage(
       temp.getString("name"),
+      temp.getString("description"),
       i,
       temp.getInt("mode"),
       temp.getFloat("distance"),
       temp.getFloat("time"),
-      temp.getJSONObject("item")
+      temp.getJSONObject("item"),
+      temp.getJSONObject("sporn")
       ));
   }
   

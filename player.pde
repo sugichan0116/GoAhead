@@ -139,8 +139,7 @@ class Player extends Matrix{
     pg.text("HP : " + HP + " / " + maxHP, 32, 16);
     pg.textAlign(RIGHT, BOTTOM);
     pg.textSize(28);
-    pg.text(String.format("%,3.1f ", getDistance())
-      + ((stage.isLONG()) ? ("/ " + String.format("%,3.1f m", stage.getDistance())) : "m"),
+    pg.text(distancesToStringNormal(stage.isLONG(), getDistance(), stage.getDistance()),
       width - 32, height - 32);
     pg.popStyle();
     pg.endDraw();

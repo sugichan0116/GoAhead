@@ -36,11 +36,12 @@ class Stage implements Field {
   protected float fontSize;
   
   protected String name;
+  private String description;
   
   protected float targetDistance;
   protected float targetTime;
   
-  protected float spornRate = 1f;
+  //protected float spornRate = 1f;
   
   private float leftTime;
   
@@ -51,20 +52,27 @@ class Stage implements Field {
   private int mode;
   
   private HashMap<String, Boolean> items;
+  private HashMap<String, Float> sporns;
   
-  Stage(String name, int column, int mode, float distance, float time, JSONObject temp) {
+  Stage(String name, String description, int column,
+    int mode, float distance, float time,
+    JSONObject itemList, JSONObject spornList) {
     this.name = name;
+    this.description = "";
+    this.description = description;
     this.column = column;
     this.mode = mode;
     this.targetDistance = distance;
     this.targetTime = time;
-    fontSize = 36f;
+    fontSize = 42f;
     r = new PVector();
     s = new PVector();
     setLocation();
     state = judge = State.NOTYET;
     items = new HashMap<String, Boolean> ();
-    getItems(temp);
+    getItems(itemList);
+    sporns = new HashMap<String, Float> ();
+    getSporns(spornList);
   }
   
   void getItems(JSONObject temp) {
@@ -73,6 +81,14 @@ class Stage implements Field {
         "STAR", "TIME"};
     for(int n = 0; n < key.length; n++) {
       items.put(key[n], temp.getBoolean(key[n]));
+    }
+  }
+  
+  void getSporns(JSONObject temp) {
+    String key[] = {"ROCK", "PLANET",
+        "SCALE", "ITEM", "DISTANCE"};
+    for(int n = 0; n < key.length; n++) {
+      sporns.put(key[n], temp.getFloat(key[n]));
     }
   }
   
@@ -127,8 +143,8 @@ class Stage implements Field {
         pg.fill(#A7A7A7);
         pg.textFont(font);
         pg.textSize(fontSize);
-        pg.text("Time : " + String.format("%4.1f", leftTime) + " / " +
-          String.format("%4.1f", targetTime), 0f, 0f);
+        pg.text("Time : " + 
+          timesToString(leftTime, targetTime), 0f, 0f);
       pg.popMatrix();
       pg.popStyle();
       pg.endDraw();
@@ -145,9 +161,24 @@ class Stage implements Field {
       pg.fill((isOverlap()) ? #FFA962 : #2C2C2C);
       pg.textFont(font_Menu);
       pg.textSize(s.y);
-      pg.text("* " + name + ((isPause()) ? "[Pause]" : ""), 0f, 0f);
+      pg.text("" + name + ((isPause()) ? "[Pause]" : ""), 0f, 0f);
     pg.popMatrix();
     pg.popStyle();
+    if(isOverlap()) {
+      String target = "";
+      if(isLONG()) target += "目標距離 : " + distanceToString(targetDistance) + "\n";
+      if(isTIME()) target += "目標時間 : " + timeToString(targetTime) + "\n";
+      pg.pushStyle();
+      pg.pushMatrix();
+        pg.textAlign(RIGHT, CENTER);
+        pg.textFont(font_Desc, 14);
+        pg.text(description, width - 256, height * .3f, 256, 128);
+        pg.textFont(font_Desc, 16);
+        pg.text(target, width - 196, height * .5f, 196, 128);
+      pg.popMatrix();
+      pg.popStyle();
+      
+    }
     pg.endDraw();
   }
   

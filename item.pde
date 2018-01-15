@@ -187,7 +187,7 @@ class Item extends Obstacle {
     }
     else
     if(name == "STAR") {
-        temp.setInvincibleTime(16.0f);
+        temp.setInvincibleTime(8.0f);
     }
     else
     if(name == "TIME") {
