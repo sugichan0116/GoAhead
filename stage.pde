@@ -24,7 +24,8 @@ interface Mode {
   FREE = 1,
   LONG = 2,
   TIME = 4,
-  DESTROY = 8
+  CHASE = 8,
+  DESTROY = 16
   ;
 }
 
@@ -201,6 +202,10 @@ class Stage implements Field {
   
   boolean isDESTROY() {
     return checkBit(mode, Mode.DESTROY);
+  }
+  
+  boolean isCHASE() {
+    return checkBit(mode, Mode.CHASE);
   }
   
   boolean isTimeUp() {
