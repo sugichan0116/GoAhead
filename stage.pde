@@ -49,7 +49,9 @@ class Stage implements Field {
   private int state,judge;
   private int mode;
   
-  Stage(String name, int column, int mode, float distance, float time) {
+  private HashMap<String, Boolean> items;
+  
+  Stage(String name, int column, int mode, float distance, float time, JSONObject temp) {
     this.name = name;
     this.column = column;
     this.mode = mode;
@@ -60,6 +62,17 @@ class Stage implements Field {
     s = new PVector();
     setLocation();
     state = judge = State.NOTYET;
+    items = new HashMap<String, Boolean> ();
+    getItems(temp);
+  }
+  
+  void getItems(JSONObject temp) {
+    String key[] = {"REPAIR", "HEART",
+        "BULLET_RED", "BULLET_BLUE", "BULLET_GREEN",
+        "STAR", "TIME"};
+    for(int n = 0; n < key.length; n++) {
+      items.put(key[n], temp.getBoolean(key[n]));
+    }
   }
   
   void setLocation() {
@@ -138,9 +151,9 @@ class Stage implements Field {
   }
   
   void Update() {
-    print("* game : " + isOver() + "/" + isClear() + "/" + isFailed() + "\n");
+    //print("* game : " + isOver() + "/" + isClear() + "/" + isFailed() + "\n");
     leftTime += 1f / frameRate;
-    print("* " + int(leftTime) + "/" + targetTime + "@" + judge + "/" + mode + "\n");
+    //print("* " + int(leftTime) + "/" + targetTime + "@" + judge + "/" + mode + "\n");
     
     setLocation();
     if(!isOver()) {

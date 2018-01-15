@@ -104,7 +104,8 @@ void setup() {
       i,
       temp.getInt("mode"),
       temp.getFloat("distance"),
-      temp.getFloat("time")
+      temp.getFloat("time"),
+      temp.getJSONObject("item")
       ));
   }
   

@@ -45,7 +45,7 @@ void Update() {
         if(int(random(8f)) == 0) {
           //item生成
           objects.add(new Item(
-            int(random(7f)), 16f, 
+            stage.items, 16f, 
             camera.x + width * 1.6f,
             camera.y + stage.me.vy - height + random(height * 3),
             0f, 0f
