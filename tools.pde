@@ -39,7 +39,7 @@ float pulse(float num, float filter) {
 }
 
 float Beat(float interval) {
-  return ((float)frameCount % (frameRate * interval)) / (frameRate * interval);
+  return ((float)frameCount % (30f * interval)) / (30f * interval);
 }
 
 void playSound(String soundKey, int Cue) {

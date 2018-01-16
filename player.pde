@@ -47,7 +47,7 @@ class Player extends Matrix{
     bulletData.put("COOL" + 1, 4f);
     bulletData.put("COOL" + 2, 24f);
     bulletData.put("SIZE" + 2, 16f);
-    bulletData.put("DAMAGE" + 2, 4f);
+    bulletData.put("DAMAGE" + 2, 6f);
     
     moveMaxCoolTime = 6;
     moveResist = 0.3f;
@@ -80,14 +80,16 @@ class Player extends Matrix{
   }
   
   void beatUp() {
-    moveBeatSpeed = 1.25f;
+    moveBeatSpeed = 1.1f;
     moveBeatTime = int(frameRate) * 8;
   }
   
   void scaleDown() {
-    sizeScale = .6f;
+    if(sizeScaleTime == 0) {
+      sizeScale = .6f;
+      size *= sizeScale;
+    }
     sizeScaleTime = int(frameRate) * 8;
-    size *= sizeScale;
   }
   
   void addHP(int add) {

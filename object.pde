@@ -1,5 +1,6 @@
 interface Object {
   void Draw();
+  boolean isDraw();
   void Update();
   boolean isDestroyed();
   void collision(Object temp);
@@ -30,6 +31,11 @@ class Matrix implements Object, Utility{
       rectMode(CENTER);
       rect(0, 0, size, size);
     popMatrix();
+  }
+  
+  boolean isDraw() {
+    return (camera.x <= x + size && x - size <= camera.x + width) &&
+      (camera.y <= y + size && y - size <= camera.y + height);
   }
   
   float getLeftSide() {

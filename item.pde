@@ -82,10 +82,35 @@ class Item extends Obstacle {
       translate(x - camera.x, y - camera.y);
       imageMode(CENTER);
       if(isCollision == false || leftTime % 2 == 0) {
+        DrawLights(TAU * Beat(11f), 24f);
+        DrawLights(TAU * -Beat(7f), 20f);
+        DrawLights(TAU * Beat(5f), 16f);
         image(icons.get(iconName.get(name)), 0, 0, size, size);
       }
     popMatrix();
     popStyle();
+  }
+  
+  void DrawLights(float angle, float scale) {
+    pushStyle();
+    pushMatrix();
+      int wings = 4;
+      PImage icon = icons.get("LIGHTS");
+      blendMode(ADD);
+      tint(64);
+      rotate(angle);
+      for(int n = 0; n < wings; n++) {
+        //float angle = TAU * (float(n) / float(wings) + Beat(8f));
+        rotate(TAU * float(n) / float(wings));
+        image(icon,
+          scale / 2f,
+          0f,
+          scale, scale * 0.6f);
+      }
+      blendMode(NORMAL);
+    popMatrix();
+    popStyle();
+    
   }
   
   void Update() {

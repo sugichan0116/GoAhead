@@ -56,7 +56,8 @@ void setup() {
       {"BULLET", "bullet.png"},
       {"BULLET_RED", "bullet.png"},
       {"BULLET_BLUE", "bullet2.png"},
-      {"BULLET_GREEN", "bullet3.png"}
+      {"BULLET_GREEN", "bullet3.png"},
+      {"LIGHTS", "back.png"}
     };
   
   icons = new HashMap<String, PImage>();

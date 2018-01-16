@@ -112,7 +112,7 @@ void Draw() {
   //object draw
   stage.me.optifineCamera();
   for(Object obj: objects) {
-    obj.Draw();
+    if(obj.isDraw()) obj.Draw();
   }
   
   if(stage.isPlay()) stage.Draw();
