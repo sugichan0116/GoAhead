@@ -82,7 +82,7 @@ class Stage implements Field {
   void getItems(JSONObject temp) {
     String key[] = {"REPAIR", "HEART",
         "BULLET_RED", "BULLET_BLUE", "BULLET_GREEN",
-        "STAR", "TIME", "BEAT_UP"};
+        "STAR", "TIME", "BEAT_UP", "SCALE_SMALL"};
     for(int n = 0; n < key.length; n++) {
       items.put(key[n], temp.getBoolean(key[n]));
     }

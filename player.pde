@@ -12,8 +12,8 @@ class Player extends Matrix{
   private int moveCoolTime, unCollisionTime, moveMaxCoolTime;
   private float moveResist, moveMaxVelocity;
   private float moveDirection, moveDirectionVelocity;
-  private float moveBeatSpeed;
-  private int moveBeatTime;
+  private float moveBeatSpeed, sizeScale;
+  private int moveBeatTime, sizeScaleTime;
   
   private int shootCoolTime, shootMaxCoolTime, shootBulletDamage;
   private int shootBulletDirection, shootBulletTime, bulletID;
@@ -58,6 +58,9 @@ class Player extends Matrix{
     moveBeatTime = 0;
     moveBeatSpeed = 1.f;
     
+    sizeScale = 1.f;
+    sizeScaleTime = 0;
+    
     bulletID = 0;
     shootCoolTime = 0;
     shootBulletDirection = 0;
@@ -79,6 +82,12 @@ class Player extends Matrix{
   void beatUp() {
     moveBeatSpeed = 1.25f;
     moveBeatTime = int(frameRate) * 8;
+  }
+  
+  void scaleDown() {
+    sizeScale = .6f;
+    sizeScaleTime = int(frameRate) * 8;
+    size *= sizeScale;
   }
   
   void addHP(int add) {
@@ -198,6 +207,12 @@ class Player extends Matrix{
     if(unCollisionTime > 0) unCollisionTime--;
     if(moveBeatTime > 0) moveBeatTime--;
     else moveBeatSpeed = 1.f;
+    
+    if(sizeScaleTime > 0) sizeScaleTime--;
+    else { 
+      size /= sizeScale;
+      sizeScale = 1.f;
+    }
     
     if(invincibleTime > 0) {
       invincibleTime--;

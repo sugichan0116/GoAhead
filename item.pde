@@ -20,6 +20,7 @@ class Item extends Obstacle {
     iconName.put("STAR", "ITEM_STAR");
     iconName.put("TIME", "ITEM_FOOD");
     iconName.put("BEAT_UP", "ITEM_BEAT_UP");
+    iconName.put("SCALE_SMALL", "ITEM_SCALE_SMALL");
     
     title = "Item get !";
     description = new HashMap<String, String> ();
@@ -31,6 +32,7 @@ class Item extends Obstacle {
     description.put("STAR", "You Are * Invincible *");
     description.put("TIME", "The Food, +" + int(timeRepair) + " seconds");
     description.put("BEAT_UP", "Faster HeartBeat, Tempo Up");
+    description.put("SCALE_SMALL", "You shrunk, very Small !");
     explain = "Press *ANY KEY*";
     
     fontSize_NORMAL = 24f;
@@ -156,6 +158,10 @@ class Item extends Obstacle {
     else
     if(name == "BEAT_UP") {
         temp.beatUp();
+    }
+    else
+    if(name == "SCALE_SMALL") {
+        temp.scaleDown();
     }
     
   }

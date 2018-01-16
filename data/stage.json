@@ -13,6 +13,7 @@
       "BULLET_GREEN": false,
       "STAR": false,
       "TIME": false,
+      "SCALE_SMALL": false,
       "BEAT_UP" : false
     },
     "sporn": {
@@ -39,6 +40,7 @@
       "BULLET_GREEN": false,
       "STAR": true,
       "TIME": true,
+      "SCALE_SMALL": true,
       "BEAT_UP" : true
     },
     "sporn": {
@@ -65,6 +67,7 @@
       "BULLET_GREEN": true,
       "STAR": false,
       "TIME": true,
+      "SCALE_SMALL": false,
       "BEAT_UP" : true
     },
     "sporn": {
@@ -91,6 +94,7 @@
       "BULLET_GREEN": true,
       "STAR": true,
       "TIME": false,
+      "SCALE_SMALL": true,
       "BEAT_UP" : true
     },
     "sporn": {
