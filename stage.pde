@@ -34,6 +34,7 @@ class Stage implements Field {
   protected PVector r, s;
   protected int column;
   protected float fontSize;
+  private boolean isIntroduced;
   
   protected String name;
   private String description;
@@ -64,6 +65,7 @@ class Stage implements Field {
     this.mode = mode;
     this.targetDistance = distance;
     this.targetTime = time;
+    isIntroduced = false;
     fontSize = 42f;
     r = new PVector();
     s = new PVector();
@@ -109,6 +111,12 @@ class Stage implements Field {
     camera.set(0f, 0f);
     defCamera.set(0f, 0f);
     leftTime = 0f;
+    isIntroduced = false;
+  }
+  
+  void produceText(String text, float size, float x, float y) {
+    objects.add(new Description(
+        text, size, x, y));
   }
   
   void Reset() {
@@ -183,12 +191,15 @@ class Stage implements Field {
   }
   
   void Update() {
-    //print("* game : " + isOver() + "/" + isClear() + "/" + isFailed() + "\n");
     leftTime += 1f / frameRate;
-    //print("* " + int(leftTime) + "/" + targetTime + "@" + judge + "/" + mode + "\n");
     
+    
+    if(isIntroduced == false && leftTime > 1f) {
+      isIntroduced = true;
+      produceText("Click to Move Right !", s.y, width / 2f, height / 2f);
+    }
     setLocation();
-    if(!isOver()) {
+    if(!isOver()) {                
       if(isLONG()) {
         if(me.getDistance() >= targetDistance) {
           judge = State.CLEAR;

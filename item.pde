@@ -135,34 +135,6 @@ class Item extends Obstacle {
   }
   
   void itemEffects(Player temp) {
-    /*
-    switch(ID) {
-      case 0:
-        temp.addHP(1);
-        break;
-      case 1:
-        temp.addMaxHP(1);
-        break;
-      case 2:
-        temp.addBullet(1);
-        temp.setBulletColor(0);
-        break;
-      case 3:
-        temp.addBullet(1);
-        temp.setBulletColor(1);
-        break;
-      case 4:
-        temp.addBullet(1);
-        temp.setBulletColor(2);
-        break;
-      case 5:
-        temp.setInvincibleTime(16.0f);
-        break;
-      case 6:
-        stage.repairTime(timeRepair);
-        break;
-    }
-    */
     if(name == "REPAIR") {
         temp.addHP(1);
     }

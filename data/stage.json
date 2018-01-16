@@ -48,7 +48,7 @@
   {
     "name": "Asteroids Belt",
     "distance": 6000,
-    "time": 60,
+    "time": 30,
     "mode": 6,
     "item": {
       "REPAIR": true,
