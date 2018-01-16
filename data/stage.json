@@ -41,7 +41,7 @@
       "STAR": true,
       "TIME": true,
       "SCALE_SMALL": true,
-      "BEAT_UP" : true
+      "BEAT_UP" : false
     },
     "sporn": {
       "ROCK": 1.5,
@@ -67,8 +67,8 @@
       "BULLET_GREEN": true,
       "STAR": false,
       "TIME": true,
-      "SCALE_SMALL": false,
-      "BEAT_UP" : true
+      "SCALE_SMALL": true,
+      "BEAT_UP" : false
     },
     "sporn": {
       "ROCK": 1.5,
