@@ -88,7 +88,7 @@ class Stage implements Field {
   
   void getSporns(JSONObject temp) {
     String key[] = {"ROCK", "PLANET",
-        "SCALE", "ITEM", "DISTANCE"};
+        "SCALE", "ITEM", "DISTANCE", "SHOOTING"};
     for(int n = 0; n < key.length; n++) {
       sporns.put(key[n], temp.getFloat(key[n]));
     }
@@ -169,7 +169,7 @@ class Stage implements Field {
       pg.fill((isOverlap()) ? #FFA962 : #2C2C2C);
       pg.textFont(font_Menu);
       pg.textSize(s.y);
-      pg.text("" + name + ((isPause()) ? "[Pause]" : ""), 0f, 0f);
+      pg.text("" + name + ((isClear()) ? "[Clear]" : ""), 0f, 0f);
     pg.popMatrix();
     pg.popStyle();
     if(isOverlap()) {

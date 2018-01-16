@@ -17,8 +17,9 @@
       "ROCK": 1.0,
       "PLANET": 1.0,
       "SCALE": 0.5,
+      "SHOOTING" : 1.0,
       "ITEM": 1.0,
-      "DISTANCE": 1.0
+      "DISTANCE": 0.0
     },
     "description": "～　あなたは宇宙を旅する。\nロケットに付いた、「衛星推力エンジン」で進み始めた。"
   },
@@ -40,15 +41,16 @@
       "ROCK": 1.5,
       "PLANET": 1.0,
       "SCALE": 0.8,
+      "SHOOTING" : 1.0,
       "ITEM": 1.0,
-      "DISTANCE": 1.0
+      "DISTANCE": 0.0
     },
     "description": "～　あなたには時間がなかった。\n宇宙食は空っぽだった。生きるためにあなたは急いだ。"
   },
   {
     "name": "Asteroids Belt",
     "distance": 6000,
-    "time": 30,
+    "time": 40,
     "mode": 6,
     "item": {
       "REPAIR": true,
@@ -63,8 +65,9 @@
       "ROCK": 1.5,
       "PLANET": 1.5,
       "SCALE": 0.8,
+      "SHOOTING" : 1.6,
       "ITEM": 2.0,
-      "DISTANCE": 1.1
+      "DISTANCE": 0.1
     },
     "description": "～　背中を伝ったのは冷や汗だ。\n小惑星帯に迷い込んだあなたは、死に物狂いで進み続けた。"
   },
@@ -86,8 +89,9 @@
       "ROCK": 1.0,
       "PLANET": 1.0,
       "SCALE": 1.0,
+      "SHOOTING" : 1.1,
       "ITEM": 1.0,
-      "DISTANCE": 1.2
+      "DISTANCE": 0.2
     },
     "description": "～　あなたは航海が好きだ。\nなんのあてもなく、ただあなたはその宇宙を進み続けた。"
   }

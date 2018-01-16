@@ -41,7 +41,7 @@ void Update() {
     //object produce
     float base = (camera.x - defCamera.x) / 64f;
     float rate = stage.sporns.get("ROCK")
-      * (1f + (stage.sporns.get("DISTANCE") - 1f)
+      * (1f + stage.sporns.get("DISTANCE")
       * max(0f,log(stage.me.getDistance() / 1000f)));
     if(base * rate > 1) {
       
@@ -55,7 +55,10 @@ void Update() {
             0f, 0f
             ));
         } else {
-          PVector v = new PVector(-pulse(abs(randomGaussian() * 32f), 64f), 0f);
+          PVector v = new PVector(
+            -pulse(abs(randomGaussian() * 32f) * stage.sporns.get("SHOOTING"), 64f),
+            0f
+            );
           if(v.x < 0f) v.y = randomGaussian() * 64;
           //obst生成
           objects.add(new Obstacle(
