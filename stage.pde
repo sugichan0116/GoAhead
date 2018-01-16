@@ -47,6 +47,7 @@ class Stage implements Field {
   private float leftTime;
   
   protected int playerHP = 3;
+  private float bpm;
   protected Player me;
   
   private int state,judge;
@@ -56,13 +57,14 @@ class Stage implements Field {
   private HashMap<String, Float> sporns;
   
   Stage(String name, String description, int column,
-    int mode, float distance, float time,
+    int mode, float bpm, float distance, float time,
     JSONObject itemList, JSONObject spornList) {
     this.name = name;
     this.description = "";
     this.description = description;
     this.column = column;
     this.mode = mode;
+    this.bpm = bpm;
     this.targetDistance = distance;
     this.targetTime = time;
     isIntroduced = false;
@@ -80,7 +82,7 @@ class Stage implements Field {
   void getItems(JSONObject temp) {
     String key[] = {"REPAIR", "HEART",
         "BULLET_RED", "BULLET_BLUE", "BULLET_GREEN",
-        "STAR", "TIME"};
+        "STAR", "TIME", "BEAT_UP"};
     for(int n = 0; n < key.length; n++) {
       items.put(key[n], temp.getBoolean(key[n]));
     }

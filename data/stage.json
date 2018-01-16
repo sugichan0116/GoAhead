@@ -4,6 +4,7 @@
     "distance": 3000,
     "time": 0,
     "mode": 2,
+    "bpm" : 70,
     "item": {
       "REPAIR": true,
       "HEART": true,
@@ -11,7 +12,8 @@
       "BULLET_BLUE": false,
       "BULLET_GREEN": false,
       "STAR": false,
-      "TIME": false
+      "TIME": false,
+      "BEAT_UP" : false
     },
     "sporn": {
       "ROCK": 1.0,
@@ -28,6 +30,7 @@
     "distance": 6000,
     "time": 30,
     "mode": 6,
+    "bpm" : 80,
     "item": {
       "REPAIR": true,
       "HEART": true,
@@ -35,7 +38,8 @@
       "BULLET_BLUE": false,
       "BULLET_GREEN": false,
       "STAR": true,
-      "TIME": true
+      "TIME": true,
+      "BEAT_UP" : true
     },
     "sporn": {
       "ROCK": 1.5,
@@ -52,6 +56,7 @@
     "distance": 6000,
     "time": 40,
     "mode": 6,
+    "bpm" : 90,
     "item": {
       "REPAIR": true,
       "HEART": true,
@@ -59,7 +64,8 @@
       "BULLET_BLUE": true,
       "BULLET_GREEN": true,
       "STAR": false,
-      "TIME": true
+      "TIME": true,
+      "BEAT_UP" : true
     },
     "sporn": {
       "ROCK": 1.5,
@@ -76,6 +82,7 @@
     "distance": 0,
     "time": 0,
     "mode": 1,
+    "bpm" : 85,
     "item": {
       "REPAIR": true,
       "HEART": true,
@@ -83,7 +90,8 @@
       "BULLET_BLUE": true,
       "BULLET_GREEN": true,
       "STAR": true,
-      "TIME": false
+      "TIME": false,
+      "BEAT_UP" : true
     },
     "sporn": {
       "ROCK": 1.0,

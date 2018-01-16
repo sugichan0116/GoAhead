@@ -11,12 +11,6 @@ class Item extends Obstacle {
   private final float timeRepair = 4f;
   
   Item(HashMap<String, Boolean> temp, float size, float x, float y, float vx, float vy) {
-    /*
-    iconName = new String[] {
-      "ITEM_REPAIR", "HEART_EMPTY",
-      "ITEM_BULLET_RED", "ITEM_BULLET_BLUE", "ITEM_BULLET_GREEN",
-      "ITEM_STAR", "ITEM_FOOD"};
-    */
     iconName = new HashMap<String, String> ();
     iconName.put("REPAIR", "ITEM_REPAIR");
     iconName.put("HEART", "HEART_EMPTY");
@@ -25,6 +19,7 @@ class Item extends Obstacle {
     iconName.put("BULLET_GREEN", "ITEM_BULLET_GREEN");
     iconName.put("STAR", "ITEM_STAR");
     iconName.put("TIME", "ITEM_FOOD");
+    iconName.put("BEAT_UP", "ITEM_BEAT_UP");
     
     title = "Item get !";
     description = new HashMap<String, String> ();
@@ -35,20 +30,13 @@ class Item extends Obstacle {
     description.put("BULLET_GREEN", "The GREEN bullet, Higher Power");
     description.put("STAR", "You Are * Invincible *");
     description.put("TIME", "The Food, +" + int(timeRepair) + " seconds");
-    /*
-    description = new String[] {
-      "Repair +1 HP",
-      "IMPROVE +1 max HP",
-      "The RED bullet, Larger Range",
-      "The BLUE bullet, More Bullet",
-      "The GREEN bullet, Higher Power",
-      "You Are * Invincible *",
-      "The Food, +" + int(timeRepair) + " seconds"};
-      */
+    description.put("BEAT_UP", "Faster HeartBeat, Tempo Up");
     explain = "Press *ANY KEY*";
+    
     fontSize_NORMAL = 24f;
     fontSize_TITLE = 36f;
     waveColor = color(#50FF36);
+    
     getID(temp);
     approachRangeRate = 8.0f;
     moveResist = 0.6f;
@@ -164,6 +152,10 @@ class Item extends Obstacle {
     else
     if(name == "TIME") {
         stage.repairTime(timeRepair);
+    }
+    else
+    if(name == "BEAT_UP") {
+        temp.beatUp();
     }
     
   }

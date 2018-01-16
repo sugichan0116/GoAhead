@@ -12,6 +12,8 @@ class Player extends Matrix{
   private int moveCoolTime, unCollisionTime, moveMaxCoolTime;
   private float moveResist, moveMaxVelocity;
   private float moveDirection, moveDirectionVelocity;
+  private float moveBeatSpeed;
+  private int moveBeatTime;
   
   private int shootCoolTime, shootMaxCoolTime, shootBulletDamage;
   private int shootBulletDirection, shootBulletTime, bulletID;
@@ -51,8 +53,10 @@ class Player extends Matrix{
     moveResist = 0.3f;
     moveCoolTime = 0;
     moveDirection = 0f;
-    moveDirectionVelocity = 80f / 60f * TAU; //80 BPM
+    moveDirectionVelocity = stage.bpm / 60f * TAU; //80 BPM
     moveMaxVelocity = 4196f;
+    moveBeatTime = 0;
+    moveBeatSpeed = 1.f;
     
     bulletID = 0;
     shootCoolTime = 0;
@@ -70,6 +74,11 @@ class Player extends Matrix{
     shootBulletDamage = int(getBulletData("DAMAGE"));
     shootAngleRange = 
       radians(getBulletData("ACCURACY") * min(120, 20 + shootBulletDirection * 5));
+  }
+  
+  void beatUp() {
+    moveBeatSpeed = 1.25f;
+    moveBeatTime = int(frameRate) * 8;
   }
   
   void addHP(int add) {
@@ -177,7 +186,7 @@ class Player extends Matrix{
     vx *= 1f - Framed(moveResist);
     vy *= 1f - Framed(moveResist);
     angle += Framed((new PVector(vx, vy)).heading() - angle) / moveResist;
-    moveDirection += Framed(moveDirectionVelocity);
+    moveDirection += Framed(moveDirectionVelocity * moveBeatSpeed);
     
     if(moveCoolTime > 0) moveCoolTime--;
     else tryMove();
@@ -187,6 +196,8 @@ class Player extends Matrix{
     else tryShoot();
     
     if(unCollisionTime > 0) unCollisionTime--;
+    if(moveBeatTime > 0) moveBeatTime--;
+    else moveBeatSpeed = 1.f;
     
     if(invincibleTime > 0) {
       invincibleTime--;
