@@ -53,7 +53,7 @@ class Stage implements Field {
   private int state,judge;
   private int mode;
   
-  private HashMap<String, Boolean> items;
+  private HashMap<String, Integer> items;
   private HashMap<String, Float> sporns;
   
   Stage(String name, String description, int column,
@@ -73,7 +73,7 @@ class Stage implements Field {
     s = new PVector();
     setLocation();
     state = judge = State.NOTYET;
-    items = new HashMap<String, Boolean> ();
+    items = new HashMap<String, Integer> ();
     getItems(itemList);
     sporns = new HashMap<String, Float> ();
     getSporns(spornList);
@@ -84,7 +84,7 @@ class Stage implements Field {
         "BULLET_RED", "BULLET_BLUE", "BULLET_GREEN",
         "STAR", "TIME", "BEAT_UP", "SCALE_SMALL"};
     for(int n = 0; n < key.length; n++) {
-      items.put(key[n], temp.getBoolean(key[n]));
+      items.put(key[n], temp.getInt(key[n]));
     }
   }
   

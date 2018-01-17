@@ -10,7 +10,7 @@ class Item extends Obstacle {
   private float fontSize_NORMAL, fontSize_TITLE;
   private final float timeRepair = 4f;
   
-  Item(HashMap<String, Boolean> temp, float size, float x, float y, float vx, float vy) {
+  Item(HashMap<String, Integer> temp, float size, float x, float y, float vx, float vy) {
     iconName = new HashMap<String, String> ();
     iconName.put("REPAIR", "ITEM_REPAIR");
     iconName.put("HEART", "HEART_EMPTY");
@@ -50,7 +50,7 @@ class Item extends Obstacle {
     leftTime = 8;
   }
   
-  void getID(HashMap<String, Boolean> temp) {
+  void getID(HashMap<String, Integer> temp) {
     float random = random(1f);
     int entry = 0;
     int order = 0;
@@ -58,21 +58,20 @@ class Item extends Obstacle {
     name = "";
     
     for(String Key: temp.keySet()) {
-      if(temp.get(Key)) entry++;
-      //println("* " + Key + "/" + temp.get(Key));
+      entry += temp.get(Key);
     }
     for(String Key: temp.keySet()) {
-      if(temp.get(Key)) {
+      //if(temp.get(Key)) {
         //println("* " + Key + " ," + random + "/" + order + "[" + (float(order) / float(entry)) + "/" + (float(order + 1) / float(entry)) + "]");
         if(float(order) / float(entry) <= random && 
-          random <= float(order + 1) / float(entry)) {
+          random <= float(order + temp.get(Key)) / float(entry)) {
           //ID = order;
-          println("* " + Key + " ," + random + "[" + (float(order) / float(entry)) + "/" + float(order + 1) / float(entry) + "]");
+          println("* " + Key + " ," + random + "[" + (float(order) / float(entry)) + "/" + float(order + temp.get(Key)) / float(entry) + "]");
           name = Key;
           break;
         }
-        order++;
-      }
+        order += temp.get(Key);
+      //}
     }
   }
   
@@ -82,9 +81,9 @@ class Item extends Obstacle {
       translate(x - camera.x, y - camera.y);
       imageMode(CENTER);
       if(isCollision == false || leftTime % 2 == 0) {
-        DrawLights(TAU * Beat(11f), 24f);
-        DrawLights(TAU * -Beat(7f), 20f);
-        DrawLights(TAU * Beat(5f), 16f);
+        DrawLights(TAU * Beat(11.3f), 24f);
+        DrawLights(TAU * -Beat(7.3f), 20f);
+        DrawLights(TAU * Beat(5.3f), 16f);
         image(icons.get(iconName.get(name)), 0, 0, size, size);
       }
     popMatrix();

@@ -6,15 +6,15 @@
     "mode": 2,
     "bpm" : 70,
     "item": {
-      "REPAIR": true,
-      "HEART": true,
-      "BULLET_RED": false,
-      "BULLET_BLUE": false,
-      "BULLET_GREEN": false,
-      "STAR": false,
-      "TIME": false,
-      "SCALE_SMALL": false,
-      "BEAT_UP" : false
+      "REPAIR": 3,
+      "HEART": 1,
+      "BULLET_RED": 0,
+      "BULLET_BLUE": 0,
+      "BULLET_GREEN": 0,
+      "STAR": 0,
+      "TIME": 0,
+      "SCALE_SMALL": 0,
+      "BEAT_UP" : 0
     },
     "sporn": {
       "ROCK": 1.0,
@@ -28,20 +28,20 @@
   },
   {
     "name": "Voyager",
-    "distance": 6000,
-    "time": 30,
+    "distance": 5000,
+    "time": 50,
     "mode": 6,
     "bpm" : 80,
     "item": {
-      "REPAIR": true,
-      "HEART": true,
-      "BULLET_RED": false,
-      "BULLET_BLUE": false,
-      "BULLET_GREEN": false,
-      "STAR": true,
-      "TIME": true,
-      "SCALE_SMALL": true,
-      "BEAT_UP" : false
+      "REPAIR": 8,
+      "HEART": 2,
+      "BULLET_RED": 0,
+      "BULLET_BLUE": 0,
+      "BULLET_GREEN": 0,
+      "STAR": 1,
+      "TIME": 6,
+      "SCALE_SMALL": 2,
+      "BEAT_UP" : 0
     },
     "sporn": {
       "ROCK": 1.5,
@@ -56,19 +56,19 @@
   {
     "name": "Asteroids Belt",
     "distance": 6000,
-    "time": 40,
+    "time": 120,
     "mode": 6,
     "bpm" : 90,
     "item": {
-      "REPAIR": true,
-      "HEART": true,
-      "BULLET_RED": true,
-      "BULLET_BLUE": true,
-      "BULLET_GREEN": true,
-      "STAR": false,
-      "TIME": true,
-      "SCALE_SMALL": true,
-      "BEAT_UP" : false
+      "REPAIR": 3,
+      "HEART": 1,
+      "BULLET_RED": 2,
+      "BULLET_BLUE": 2,
+      "BULLET_GREEN": 2,
+      "STAR": 0,
+      "TIME": 2,
+      "SCALE_SMALL": 1,
+      "BEAT_UP" : 0
     },
     "sporn": {
       "ROCK": 1.5,
@@ -87,15 +87,15 @@
     "mode": 1,
     "bpm" : 85,
     "item": {
-      "REPAIR": true,
-      "HEART": true,
-      "BULLET_RED": true,
-      "BULLET_BLUE": true,
-      "BULLET_GREEN": true,
-      "STAR": true,
-      "TIME": false,
-      "SCALE_SMALL": true,
-      "BEAT_UP" : true
+      "REPAIR": 10,
+      "HEART": 1,
+      "BULLET_RED": 6,
+      "BULLET_BLUE": 6,
+      "BULLET_GREEN": 6,
+      "STAR": 1,
+      "TIME": 0,
+      "SCALE_SMALL": 4,
+      "BEAT_UP" : 2
     },
     "sporn": {
       "ROCK": 1.0,
