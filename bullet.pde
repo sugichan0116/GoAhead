@@ -3,6 +3,10 @@ class Bullet extends Obstacle {
   int damage;
   float moveResist;
   
+  Bullet() {
+    this(0, 0, 0, 0f, 0f, 0f, 0f, 0f, 0f);
+  }
+  
   Bullet(int id, int damage, int time, float size, float x, float y, float vx, float vy, float angle) {
     ID = id;
     this.damage = damage;
